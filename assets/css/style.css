@@ -1,0 +1,169 @@
+/* Custom CSS - 最小限のカスタムスタイルのみ */
+/* 基本的なスタイルはTailwindで実装 */
+
+/* オフキャンバスメニューのアニメーション用 */
+.offcanvas-open {
+    transform: translateX(0) !important;
+}
+
+/* メニューオーバーレイ */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 30;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* モバイル対応の追加スタイル */
+@media (max-width: 640px) {
+    /* スマホ用の微調整 */
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* メニューテキストのサイズ調整 */
+    #offCanvasMenu nav a {
+        font-size: 1.125rem; /* text-lg相当 */
+    }
+}
+
+/* ロゴのレスポンシブ調整 */
+@media (max-width: 480px) {
+    header .absolute {
+        position: static;
+        transform: none;
+        margin: 0 auto;
+    }
+
+    header .w-20 {
+        width: 2.5rem;
+    }
+
+    /* スマホでのロゴサイズ調整 */
+    header img {
+        height: 50px !important;
+    }
+}
+
+/* ロゴの高さをヘッダーいっぱいに調整 */
+header img {
+    max-height: 65px;
+    object-fit: contain;
+}
+
+/* 全幅表示の調整 */
+.w-full {
+    width: 100%;
+}
+
+/* モバイルでのパディング調整 */
+@media (max-width: 640px) {
+    .px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* 大きな画面での最大幅制限を解除 */
+.container {
+    max-width: none !important;
+}
+
+/* 1080px幅のコンテナ用スタイル */
+.max-w-large-12 {
+    max-width: 1080px;
+}
+
+/* モバイルでの1080pxコンテナ調整 */
+@media (max-width: 1080px) {
+    .max-w-large-12 {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* 1080px以上の画面での中央揃え */
+@media (min-width: 1081px) {
+    .max-w-large-12 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* メインカラムの背景画像設定 */
+main {
+    background-image: url('../img/bg_img.jpg');
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+    background-position: top center;
+    background-attachment: scroll;
+}
+
+/* 1080pxコンテナ内の白背景ブロック */
+.max-w-large-12.bg-white {
+    background-color: white;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* モバイルでの調整 */
+@media (max-width: 640px) {
+    /* モバイルでは背景画像のリピートを控えめに */
+    main {
+        background-repeat: repeat-y;
+        background-size: 100% auto;
+    }
+
+    /* モバイルでのパディング調整 */
+    .py-12 {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .max-w-large-12.bg-white {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* タブレット以上の画面での調整 */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .py-12 {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
+}
+
+/* コンセプト画像のふわっと表示アニメーション */
+#conceptImage {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out 0.3s, transform 1s ease-out 0.3s;
+}
+
+/* ページ読み込み後にアニメーションを適用 */
+body.loaded #conceptImage {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 画像が読み込まれる前は非表示にしない（ローディング状態を考慮） */
+#conceptImage:not([src]),
+#conceptImage[src=""] {
+    opacity: 0;
+}
