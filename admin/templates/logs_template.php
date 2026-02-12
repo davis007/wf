@@ -1,52 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>配信ログ - WEST FIELD 管理パネル</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-gray-100 min-h-screen">
-    <!-- ナビゲーションバー -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-xl font-bold text-gray-800">WEST FIELD 管理パネル</h1>
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="dashboard.php" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="fas fa-tachometer-alt mr-2"></i>ダッシュボード
-                        </a>
-                        <a href="recipients.php" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="fas fa-users mr-2"></i>送信先管理
-                        </a>
-                        <a href="send_mail.php" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="fas fa-paper-plane mr-2"></i>メール送信
-                        </a>
-                        <a href="logs.php" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="fas fa-history mr-2"></i>配信ログ
-                        </a>
-                        <a href="signature.php" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                            <i class="fas fa-signature mr-2"></i>署名編集
-                        </a>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <span class="text-gray-700 mr-4">
-                        <i class="fas fa-user-circle mr-1"></i><?php echo htmlspecialchars($admin_email); ?>
-                    </span>
-                    <a href="logout.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                        <i class="fas fa-sign-out-alt mr-1"></i>ログアウト
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<?php
+// ページタイトルと現在のページを設定
+$page_title = '配信ログ - WEST FIELD 管理パネル';
+$current_page = 'logs';
+?>
 
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+<?php include_once 'header.php'; ?>
+
         <!-- 統計カード -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-white overflow-hidden shadow rounded-lg">
@@ -241,6 +200,5 @@
                 </div>
             <?php endif; ?>
         </div>
-    </div>
-</body>
-</html>
+
+<?php include_once 'footer.php'; ?>
