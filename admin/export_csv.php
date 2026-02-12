@@ -1,8 +1,17 @@
 <?php
+// エラー出力を抑制（最初に実行）
+error_reporting(0);
+ini_set('display_errors', 0);
+
 require_once 'auth_check.php';
 check_admin_login();
 
 $db = get_db();
+
+// 出力バッファをクリア（エラー防止）
+while (ob_get_level()) {
+    ob_end_clean();
+}
 
 // 送信先データを取得
 $stmt = $db->prepare("SELECT name, email, subscribed, created_at FROM recipients ORDER BY created_at DESC");
@@ -12,15 +21,22 @@ $recipients = $stmt->fetchAll();
 // CSVヘッダーを設定
 header('Content-Type: text/csv; charset=utf-8');
 header('Content-Disposition: attachment; filename=recipients_' . date('Ymd_His') . '.csv');
+header('Cache-Control: no-cache, no-store, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
 
 // 出力ストリームを開く
 $output = fopen('php://output', 'w');
+
+if ($output === false) {
+    die('CSV出力ストリームを開けませんでした');
+}
 
 // BOMを追加（Excel用）
 fwrite($output, "\xEF\xBB\xBF");
 
 // ヘッダー行を書き込み
-fputcsv($output, ['名前', 'メールアドレス', '購読状態', '登録日時']);
+fputcsv($output, ['名前', 'メールアドレス', '購読状態', '登録日時'], ',', '"', '\\');
 
 // データ行を書き込み
 foreach ($recipients as $recipient) {
@@ -32,7 +48,7 @@ foreach ($recipients as $recipient) {
         $recipient['email'],
         $subscribed_status,
         $created_at
-    ]);
+    ], ',', '"', '\\');
 }
 
 fclose($output);

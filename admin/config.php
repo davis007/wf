@@ -12,15 +12,39 @@ define('DB_PATH', __DIR__ . '/database.sqlite');
 // 管理者メールアドレス（.envから読み込む）
 $admin_email = 'admin@example.com'; // デフォルト値
 
+// SMTP設定（.envから読み込む）
+$smtp_host = 'localhost';
+$smtp_port = 25;
+$smtp_username = '';
+$smtp_password = '';
+$smtp_from_email = 'noreply@westfield.example.com';
+$smtp_from_name = 'WEST FIELD';
+
 // .envファイルがあれば読み込む
 $env_file = __DIR__ . '/../.env';
 if (file_exists($env_file)) {
     $env_content = file_get_contents($env_file);
     $lines = explode("\n", $env_content);
     foreach ($lines as $line) {
+        $line = trim($line);
+        if (empty($line) || strpos($line, '#') === 0) {
+            continue;
+        }
+
         if (strpos($line, 'ADMIN_EMAIL=') === 0) {
             $admin_email = trim(substr($line, 12));
-            break;
+        } elseif (strpos($line, 'SMTP_HOST=') === 0) {
+            $smtp_host = trim(substr($line, 10));
+        } elseif (strpos($line, 'SMTP_PORT=') === 0) {
+            $smtp_port = intval(trim(substr($line, 10)));
+        } elseif (strpos($line, 'SMTP_USERNAME=') === 0) {
+            $smtp_username = trim(substr($line, 14));
+        } elseif (strpos($line, 'SMTP_PASSWORD=') === 0) {
+            $smtp_password = trim(substr($line, 14));
+        } elseif (strpos($line, 'SMTP_FROM_EMAIL=') === 0) {
+            $smtp_from_email = trim(substr($line, 16));
+        } elseif (strpos($line, 'SMTP_FROM_NAME=') === 0) {
+            $smtp_from_name = trim(substr($line, 15));
         }
     }
 }

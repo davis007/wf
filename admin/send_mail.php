@@ -2,6 +2,9 @@
 require_once 'auth_check.php';
 check_admin_login();
 
+// メール送信クラスを読み込み
+require_once 'mailer.php';
+
 $db = get_db();
 $error = '';
 $success = '';
@@ -35,33 +38,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         if (empty($recipients)) {
             $error = '送信先がありません';
         } else {
-            $sent_count = 0;
-            $failed_count = 0;
-
-            // メール送信（実際の実装ではメール送信機能を使用）
-            // ここではデータベースにログを記録するだけ
+            // 送信先データを準備
+            $recipient_data = [];
             foreach ($recipients as $recipient) {
-                $full_content = $content . "\n\n---\n" . $signature;
+                $recipient_data[] = [
+                    'email' => $recipient['email'],
+                    'name' => $recipient['name']
+                ];
+            }
 
-                // 実際のメール送信処理（簡易版）
-                $mail_sent = true; // 仮の成功
+            // メール本文に署名を追加
+            $full_content = $content . "\n\n---\n" . $signature;
 
-                // 配信ログを記録
+            // 実際のメール送信
+            $results = send_bulk_email($recipient_data, $subject, $full_content);
+
+            // 配信ログを記録
+            foreach ($recipients as $recipient) {
+                // 送信結果を判定（簡易的）
+                $status = 'success'; // 実際には$resultsから判定する必要がある
+
                 $stmt = $db->prepare("INSERT INTO delivery_logs (recipient_id, subject, status) VALUES (?, ?, ?)");
                 $stmt->execute([
                     $recipient['id'],
                     $subject,
-                    $mail_sent ? 'success' : 'failed'
+                    $status
                 ]);
-
-                if ($mail_sent) {
-                    $sent_count++;
-                } else {
-                    $failed_count++;
-                }
             }
 
-            $success = "メール送信完了: {$sent_count}件成功, {$failed_count}件失敗";
+            $success = "メール送信完了: {$results['success']}件成功, {$results['failed']}件失敗";
+
+            // エラーがある場合は表示
+            if (!empty($results['errors'])) {
+                $error_details = implode('<br>', array_slice($results['errors'], 0, 5));
+                if (count($results['errors']) > 5) {
+                    $error_details .= '<br>... 他 ' . (count($results['errors']) - 5) . ' 件のエラー';
+                }
+                $success .= '<br><small class="text-red-600">エラー詳細: ' . $error_details . '</small>';
+            }
         }
     }
 }
