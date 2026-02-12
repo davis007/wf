@@ -1,957 +1,933 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEST FIELD - サバイバルゲームフィールド</title>
-    <!-- Tailwind CSS CDN with custom config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'primary': '#56BAB6',
-              'secondary': '#2C3E50',
-            },
-            fontFamily: {
-              'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
-            },
-            screens: {
-              'xs': '480px',
-              'lg': '1080px',
-            },
-            maxWidth: {
-              'large-12': '1080px',
-            },
-            animation: {
-              'slide-in': 'slideIn 0.3s ease-in-out',
-              'slide-out': 'slideOut 0.3s ease-in-out',
-            },
-            keyframes: {
-              slideIn: {
-                '0%': { transform: 'translateX(-100%)' },
-                '100%': { transform: 'translateX(0)' },
-              },
-              slideOut: {
-                '0%': { transform: 'translateX(0)' },
-                '100%': { transform: 'translateX(-100%)' },
-              },
-            },
-          },
-        },
-      }
-    </script>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/img/logo.jpg">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WEST FIELD - サバイバルゲームフィールド</title>
+	<!-- Tailwind CSS CDN with custom config -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+	  tailwind.config = {
+		theme: {
+		  extend: {
+			colors: {
+			  'primary': '#56BAB6',
+			  'secondary': '#2C3E50',
+			},
+			fontFamily: {
+			  'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
+			},
+			screens: {
+			  'xs': '480px',
+			  'lg': '1080px',
+			},
+			maxWidth: {
+			  'large-12': '1080px',
+			},
+			animation: {
+			  'slide-in': 'slideIn 0.3s ease-in-out',
+			  'slide-out': 'slideOut 0.3s ease-in-out',
+			},
+			keyframes: {
+			  slideIn: {
+				'0%': { transform: 'translateX(-100%)' },
+				'100%': { transform: 'translateX(0)' },
+			  },
+			  slideOut: {
+				'0%': { transform: 'translateX(0)' },
+				'100%': { transform: 'translateX(-100%)' },
+			  },
+			},
+		  },
+		},
+	  }
+	</script>
+	<!-- Font Awesome for icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="assets/img/logo.jpg">
 </head>
 <body class="font-sans">
-    <!-- Header -->
-    <div id="header"></div>
-
-    <!-- Main Content -->
-    <main class="pt-0 min-h-screen">
-        <!-- メインカラム（1080px内側が白背景、外側は背景画像） -->
-        <div class="max-w-large-12 mx-auto w-full px-4 py-12 bg-white mt-[65px]">
-            <!-- 1. 中央にロゴマーク 173x173px -->
-            <div class="flex justify-center mb-6">
-                <img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
-            </div>
-
-            <!-- 2. ロゴの下にテキスト -->
-            <div class="text-center mb-12">
-                <h1 class="md:text-4xl text-3xl font-bold text-gray-800 mb-2">WEST FIELD</h1>
-                <p class="md:text-xl text-lg text-gray-600">Survival Game Field in Osaka</p>
-            </div>
-
-                <!-- 3. 画像 assets/img/concept_img1-1.jpg 下から上にふわっと出る表現 -->
-                <div class="flex justify-center mb-16">
-                    <div id="conceptImageContainer" class="relative overflow-hidden">
-                        <img id="conceptImage" src="assets/img/concept_img1-1.jpg" alt="コンセプト画像" class="w-full max-w-4xl">
-                    </div>
-                </div>
-
-                <!-- 4. 料金表 -->
-                <div class="mb-16">
-                    <div class="flex items-center justify-center mb-8">
-                        <div class="flex-grow h-px bg-gray-300"></div>
-                        <h2 class="md:text-3xl text-2xl font-bold text-gray-800 mx-4 md:mx-6">利用料金</h2>
-                        <div class="flex-grow h-px bg-gray-300"></div>
-                    </div>
-
-                    <!-- テーブル表記（角丸削除、背景色変更） -->
-                    <div class="overflow-x-auto shadow-lg">
-                        <div class="flex justify-center">
-                            <table class="w-full md:w-[930px]">
-                                <colgroup>
-                                    <col class="w-1/2"> <!-- 区分列 50% -->
-                                    <col class="w-1/2"> <!-- 料金列 50% -->
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">区分</th>
-                                        <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">料金</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- 1行目：大人（背景色付き） -->
-                                    <tr class="border-b border-gray-200">
-                                        <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">大人<span class="text-xs">（18歳以上）</span></td>
-                                        <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">3,500円</td>
-                                    </tr>
-                                    <!-- 2行目：中学〜高校生（白背景） -->
-                                    <tr class="border-b border-gray-200">
-                                        <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">中学〜高校生<span class="text-xs">（12歳以上18歳未満）</span></td>
-                                        <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">3,000円</td>
-                                    </tr>
-                                    <!-- 3行目：小学生（背景色付き） -->
-                                    <tr class="border-b border-gray-200">
-                                        <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">小学生<span class="text-xs">（10歳以上12歳未満）</span></td>
-                                        <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">1,500円</td>
-                                    </tr>
-                                    <!-- 4行目：レディース（白背景） -->
-                                    <tr class="border-b border-gray-200">
-                                        <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">レディース</td>
-                                        <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">2,500円</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="py-6 px-4 md:px-6 bg-white">
-                                            <div class="space-y-3">
-                                                <div class="flex items-center">
-                                                    <span class="font-bold mr-4 md:text-base text-sm text-[#000000]">学割</span>
-                                                    <span class="md:text-base text-sm text-[#000000]">500円引き</span>
-                                                </div>
-                                                <p class="text-xs text-[#000000] pl-6 md:pl-8">（学生証確認あり。受付時に必ずお持ちください）</p>
-
-                                                <div class="flex items-center mt-4">
-                                                    <span class="font-bold mr-4 md:text-base text-sm text-[#000000]">早割</span>
-                                                    <span class="md:text-base text-sm text-[#000000]">200円引き</span>
-                                                </div>
-                                                <p class="text-xs text-[#000000] pl-6 md:pl-8">（2週間以上先の予約で割引となります。）</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- 注意書き -->
-                    <div class="mt-6 p-4 bg-amber-50 border border-amber-200">
-                        <p class="text-amber-800 text-center font-medium md:text-base text-sm">【注意】18歳未満の方は保護者同伴でお願いします。</p>
-                    </div>
-
-                    <!-- 1. お支払い方法セクション -->
-                    <div class="mt-16">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300 w-full md:w-[990px] mx-auto">お支払い方法</h3>
-                        <div class="flex justify-center">
-                            <div class="w-full md:w-[990px]">
-                                <div class="flex justify-center mb-6">
-                                    <img src="assets/img/pay_img.png" alt="お支払い方法" class="max-w-full h-auto">
-                                </div>
-                                <div class="text-gray-700 space-y-2">
-                                    <p>現金または上記決済方法がご利用可能です。</p>
-                                    <p class="text-sm">※Smart Code™は、メルペイ、FamiPay、銀行Payなど含む20種のQR決済サービスに対応しています。</p>
-                                    <p class="text-sm">※Alipay+は、16種の海外のQR決済サービスに対応しています。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. メンバーズ入会費セクション -->
-                    <div class="mt-16">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300 w-full md:w-[990px] mx-auto">メンバーズ入会費</h3>
-                        <div class="flex justify-center">
-                            <div class="w-full md:w-[990px]">
-                                <h4 class="text-xl font-bold text-gray-800 mb-4">メンバーカード</h4>
-
-                                <!-- 費用表示（左右配置ボックス） -->
-                                <div class="bg-gray-50 p-6 rounded flex flex-col md:flex-row items-center justify-between gap-6">
-                                    <!-- 左側：文章ブロック -->
-                                    <div class="flex-1">
-                                        <div class="text-gray-700 space-y-4">
-                                            <p>初めてご利用の方は、ご住所が記載されている公的機関の発行する身分証明書（免許証、保険証、マイナンバーカード等）を<strong>必ずご持参の上、受付にてご提示をお願い申し上げます。</strong></p>
-                                            <p>その際に専用のメンバーズカードを作成しお渡し致します。</p>
-                                            <p>次回以降はこのメンバーズカードをご提示ください。</p>
-                                            <p>万が一、メンバーズカードをお忘れになった場合や紛失された場合は、メンバーズカードを再発行し、再発行手数料をいただきます。あらかじめご了承ください。</p>
-                                        </div>
-                                    </div>
-                                    <!-- 右側：カードイメージ -->
-                                    <div class="flex-shrink-0">
-                                        <img src="assets/img/top_img_01-1.png" alt="メンバーズカードイメージ" class="w-[435px] h-[198px] object-contain">
-                                    </div>
-                                </div>
-
-                                <!-- 費用明示行 -->
-                                <div class="mt-4 flex justify-between items-center bg-white p-4 border border-gray-200 rounded">
-                                    <span class="text-gray-800 font-medium">発行手数料</span>
-                                    <span class="text-gray-800 font-bold text-xl">500円</span>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Googleカレンダーiframeセクション -->
-                    <div class="mt-16">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300 w-full md:w-[990px] mx-auto">定例会・貸切ご予約</h3>
-                        <div class="flex justify-center">
-                            <div class="w-full md:w-[990px]">
-                                <!-- Googleカレンダーiframe（ユーザーが挿入済み） -->
-                                <div class="flex justify-center">
-                                    <!-- ここにGoogleカレンダーのiframeが挿入されます -->
-                                    <div class="text-center text-gray-500 p-8 border border-gray-300 rounded w-full">
-                                                                                <iframe loading="lazy" src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=Asia%2FTokyo&amp;bgcolor=%23ffffff&amp;src=MzEwLndlc3QuZmllbGRAZ21haWwuY29t&amp;src=MWQxNmI0NWMzN2VmYzcwYjk3ZWUzZjZkYjY4YzBiNDk2NGY1Y2E2Y2Q0MzZmMjUxMzc1MzMyMTAzZWU4OGJkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGJjMWVjYTE4NzUzYzNlNjEwOWNkNWRmZmExNmQzZjI0ZDMzMWUyNWYxOWJiNWFkOGM3ODE3MGJkOTlmOTk3ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=YWY2ZDA2OTE4ZDVlNTBmNzZlYjE1MTcxMGY0MDlmZTBjYWE2NGIwYmQwMzBhM2RjM2M0MGEwMzRiYjhmZDZkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGNkMmJlODU3NzljMjc0NWE2MTkwYWU3ODVlNjgxMWE0MjQ5ZWUwOGExM2VkZDNjYjAyNjY0MTQ1MTY4N2Q2OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%2333B679&amp;color=%23002ccc&amp;color=%23616161&amp;color=%23F09300&amp;color=%23D50000" style="margin:auto;" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ご予約フォームボタンセクション -->
-                    <div class="mt-12">
-                        <div class="flex justify-center">
-                            <div class="w-full md:w-[990px]">
-                                <a href="#" class="block w-full">
-                                    <button class="w-full bg-[#4DB7B3] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#3da5a1] transition-colors duration-300 flex items-center justify-center gap-3">
-                                        <i class="fas fa-envelope text-xl"></i>
-                                        <span class="text-xl">ご予約フォーム</span>
-                                    </button>
-                                </a>
-
-                                <!-- 説明文 -->
-                                <div class="mt-8 text-gray-700 text-sm space-y-3">
-                                    <p><strong>【定例会】</strong>４人より開催致します。「ご予約フォーム」よりご予約してください。表記が無い日はご予約出来ません。</p>
-                                    <p><strong>【開催決定】</strong>定例会の開催を致します。最高40名様までご予約頂けます。定例会開催日は飛び込みでのご参加も可能ですが、その場合はお席のご用意が出来ない可能性もありますので事前ご予約をお願い致します。</p>
-                                    <p><strong>【満員御礼】</strong>定例会のご予約が満員の為、ご参加はキャンセル待ちとなります。</p>
-                                    <p><strong>【貸切募集中】</strong>「お問い合わせ」よりご予約ください。表記が無い日はご予約頂けません。</p>
-                                    <p><strong>【貸切決定】</strong>貸切時の一般の方の見学、ゲームへの参加は出来ません。</p>
-                                    <p><strong>【休日】</strong>フィールドメンテナンス等を行なっております。門が空いている場合が御座いますが、お客様のご入場は難くお断りさせて頂いております。</p>
-                                </div>
-
-                                <!-- お天気モジュール -->
-                                <div class="mt-4">
-                                    <object type="text/html" data="otenki.html" class="w-full h-auto"></object>
-                                </div>
-
-                                <!-- 追加文章セクション -->
-                                <div class="mt-12">
-                                    <div class="flex justify-center">
-                                        <div class="w-full md:w-[990px]">
-                                            <!-- 定例会における開催中止条件 -->
-                                            <div class="mb-10">
-                                                <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">定例会における開催中止条件</h3>
-                                                <div class="text-gray-700 space-y-4">
-                                                    <p>開催人数を下回った場合、または開催日の天候等を考慮し開催するか否かを前日の20時〜21時頃に決定致します。</p>
-                                                    <p>中止の場合はX（旧Twitter）やエントリー頂いたメールアドレスへその趣旨のご連絡を差し上げます。</p>
-                                                </div>
-                                            </div>
-
-                                            <!-- エントリーキャンセルについて -->
-                                            <div class="mb-10">
-                                                <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">エントリーキャンセルについて</h3>
-                                                <div class="text-gray-700 space-y-4">
-                                                    <p>やむを得ずキャンセルされる場合は前日、20時までに「お問い合わせ」よりその趣旨をご連絡下さい。</p>
-                                                    <p>当日、キャンセルをせざるを得ない場合は緊急連絡先（090-9715-1979）まで必ずご一報ください。</p>
-                                                    <p class="font-bold text-red-600">「無断キャンセル」につきましては次回エントリー時に２回分の参加料を徴収させて頂きます。</p>
-                                                </div>
-                                            </div>
-
-                                            <!-- フィールド貸切料金セクション -->
-                                            <div class="mt-16">
-                                                <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">フィールド貸切料金</h3>
-
-                                                <!-- テーブル -->
-                                                <div class="overflow-x-auto shadow-lg mb-6">
-                                                    <div class="flex justify-center">
-                                                        <table class="w-full md:w-[930px]">
-                                                            <colgroup>
-                                                                <col class="w-1/3"> <!-- 区分列 33% -->
-                                                                <col class="w-2/3"> <!-- 料金列 67% -->
-                                                            </colgroup>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">区分</th>
-                                                                    <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">料金</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr class="border-b border-gray-200">
-                                                                    <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">定員</td>
-                                                                    <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">40名様</td>
-                                                                </tr>
-                                                                <tr class="border-b border-gray-200">
-                                                                    <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">平日</td>
-                                                                    <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">14,000円　<span class="text-xs">※4名様まで。以降1名様追加毎に3,000円</span></td>
-                                                                </tr>
-                                                                <tr class="border-b border-gray-200">
-                                                                    <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">土曜日</td>
-                                                                    <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">70,000円　<span class="text-xs">※20名様まで。以降1名様追加毎に3,500円</span></td>
-                                                                </tr>
-                                                                <tr class="border-b border-gray-200">
-                                                                    <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">日曜日・祝日</td>
-                                                                    <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">105,000円　<span class="text-xs">※30名様まで。以後1名様追加毎に3,500円</span></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-
-                                                <!-- 注意書き -->
-                                                <p class="text-sm text-gray-600 mb-8">貸切はお問い合わせにて直接ご連絡ください。</p>
-
-                                                <!-- 角丸ボタン（ご予約フォームと同じ体裁） -->
-                                                <div class="mb-8">
-                                                    <a href="#" class="block w-full">
-                                                        <button class="w-full bg-[#4DB7B3] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#3da5a1] transition-colors duration-300 flex items-center justify-center gap-3">
-                                                            <i class="fas fa-envelope text-xl"></i>
-                                                            <span class="text-xl">お問い合わせ</span>
-                                                        </button>
-                                                    </a>
-                                                </div>
-
-                                                <!-- リスト -->
-                                                <div class="text-gray-700 space-y-4 mb-8">
-                                                    <ul class="list-disc pl-6 space-y-3">
-                                                        <li>当フィールド貸切時に起きた怪我などの責任は一切負いません。お客様での安全管理の徹底をよろしくお願いいたします。</li>
-                                                        <li>ゲーム進行はお客様にして頂きます。</li>
-                                                        <li>スタッフが進行をお手伝いする場合は別途相談となります。</li>
-                                                        <li>営業時間外の電話対応及びメールの返信はできません。予めご了承下さい。メールの返信に関しては翌営業時間にさせていただきます。</li>
-                                                        <li>貸切におけるキャンセル料は下記の通り発生いたします。
-                                                            <ul class="list-[circle] pl-6 mt-2 space-y-2">
-                                                                <li>ご利用当日の５日前まで…ご利用料金の半額</li>
-                                                                <li>５日前からご利用当日…ご利用料金の全額</li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                                <!-- 追加説明 -->
-                                                <div class="bg-blue-50 p-6 border border-blue-200 rounded-lg space-y-4">
-                                                    <p class="text-gray-700">※雨天予報時でも、基本的にフィールド側から中止を要請することはございませんが、台風接近や地震などの災害があった場合には、当フィールド側から中止をお願いすることがあります。その場合のキャンセル料金は発生しません。</p>
-                                                    <p class="text-gray-700">※雨天予報時の場合につきまして、事前にお電話等で打ち合わせをしていただくことで、当日実施場合は参加費の割引や代替案の提示もしくは、お客様の事情を考慮し、スタッフの判断で通常よりも早い段階でのキャンセルの受付や、特例でキャンセル料金無しで承れる場合があります。</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- レギュレーションセクション -->
-                                <div class="mt-16">
-                                    <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">レギュレーション</h3>
-
-                                    <!-- 画像 -->
-                                    <div class="mb-8">
-                                        <img src="assets/img/top_img_04.png" alt="レギュレーション" class="w-full md:w-[990px] h-auto shadow-lg shadow-gray-400/30">
-                                    </div>
-
-                                    <!-- 参加資格について -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">参加資格について</h4>
-                                        <p class="text-gray-700">レギュレーション及びルールを理解し遵守できる方。（日本語による意思疎通の図れないお客様のご利用は頂けません）</p>
-                                    </div>
-
-                                    <!-- 未成年者の参加資格について -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">未成年者の参加資格について</h4>
-                                        <ul class="list-disc pl-6 space-y-3 text-gray-700">
-                                            <li>10歳～17歳の未成年の方が参加する場合は、保護者の方が親権者同意書へサインをして頂く必要があります。</li>
-                                            <li>小学生の方のみでのゲームへの参加はできません。保護者の方のフィールド内での同伴もしくは見学エリアでの監視が必要となります。</li>
-                                            <li>中学生以上の未成年の方は、保護者による当フィールドまでの送迎・受付を以てお一人でのゲームの参加を認めるものとします。</li>
-                                            <li>18歳未満の方は、ゲームに使用する銃は47m/s以下の銃（10禁エアガンまたは18禁エアガンのデチューン）に限定いたします。</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- 使用可能弾 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">使用可能弾</h4>
-                                        <p class="text-gray-700">0.12g～0.25gの6mm、生分解性のバイオ弾、及び蓄光バイオ弾のみ。</p>
-                                        <p class="text-gray-700 text-sm mt-2">※生分解性以外のプラスチック弾及びセミバイオ弾の使用、持込みは禁止です。</p>
-                                    </div>
-
-                                    <!-- 初速 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">初速</h4>
-
-                                        <!-- 左右配置ボックス -->
-                                        <div class="flex flex-col md:flex-row gap-6 mb-6">
-                                            <!-- 左側：18歳以上用エアガン -->
-                                            <div class="flex-1 bg-gray-50 p-6 rounded-lg">
-                                                <h5 class="text-lg font-bold text-gray-800 mb-4">18歳以上用エアガン</h5>
-                                                <ul class="space-y-2 text-gray-700">
-                                                    <li>・0.12g弾：122m/sec未満</li>
-                                                    <li>・0.2g弾 ：95m/sec未満</li>
-                                                    <li>・0.25g弾：85m/sec未満</li>
-                                                </ul>
-                                            </div>
-
-                                            <!-- 右側：10歳以上用エアガン -->
-                                            <div class="flex-1 bg-gray-50 p-6 rounded-lg">
-                                                <h5 class="text-lg font-bold text-gray-800 mb-4">10歳以上用エアガン</h5>
-                                                <ul class="space-y-2 text-gray-700">
-                                                    <li>・0.12g弾：47m/sec未満</li>
-                                                    <li>・0.2g弾 ：36m/sec未満</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <!-- リスト -->
-                                        <ul class="list-disc pl-6 space-y-3 text-gray-700">
-                                            <li>ゲームに使用されるエアガンは弾速チェック致します。</li>
-                                            <li>弾速の上限は、弾の重さごとに異なります。初速計測の際にご使用になられる弾の重量をお伺い致します。</li>
-                                            <li>当フィールドは標高が少し高い為、ご自宅や他フィールド様で計測した初速から変動する場合が御座います。余裕をもった初速でのセッティングをお願い致します。</li>
-                                            <li>減速ハイダーの使用は不可とさせて頂いております。</li>
-                                            <li>弾速を計測して上記の数値を超えた銃については、お帰りの際まで受付にてお預かりする場合があります。</li>
-                                            <li>弾速チェックを意図的にごまかし、法定初速を超えたエアガンを使用していることが発覚した場合には即時警察への通報、以後の当施設への出入り禁止処分とします。</li>
-                                            <li>外部ソースは「サンプロジェクト」製のみ使用を許可しております。計測の際はバルブを全開放にした状態で計測をさせていただきます。</li>
-                                            <li>抜き打ちチェックをさせて頂く場合も御座います。</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- 使用可能発射サイクル、発射弾数 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">使用可能発射サイクル、発射弾数</h4>
-                                        <ul class="list-disc pl-6 space-y-3 text-gray-700">
-                                            <li>全てのエリアでセミオートのみ可能とします。
-                                                <ul class="list-[circle] pl-6 mt-2 space-y-2">
-                                                    <li>フルオート、バースト、バイナリーショット、5タップを超える発射は全て禁止です。</li>
-                                                </ul>
-                                            </li>
-                                            <li>電動ショットガン、フルオートのみのエアガンは使用できません。</li>
-                                            <li>ショットガンは1回の発射弾数が6発以上のものは使用できません。
-                                                <ul class="list-[circle] pl-6 mt-2 space-y-2">
-                                                    <li>（セレクターで5発以下に切り替えられるものは使用可能です）</li>
-                                                </ul>
-                                            </li>
-                                            <li>2024年4月からガスショットガン（セミオートのみ）使用が可能になりました。</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- 利用可能パワーソース -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">利用可能パワーソース</h4>
-
-                                        <!-- フロンガス -->
-                                        <div class="mb-6">
-                                            <p class="font-bold text-gray-800 mb-3">フロンガス</p>
-                                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
-                                                <li>HFC134a</li>
-                                                <li>HFC152a</li>
-                                                <li>HFO1234ze+LPG</li>
-                                            </ul>
-                                        </div>
-
-                                        <!-- CO2 -->
-                                        <div>
-                                            <p class="font-bold text-gray-800 mb-3">CO2</p>
-                                            <ul class="list-disc pl-6 space-y-2 text-gray-700">
-                                                <li>12gサイズボンベ
-                                                    <ul class="list-[circle] pl-6 mt-1 space-y-1 text-sm">
-                                                        <li>※「全日本トイガン安全協会」（STGA）や「日本エアースポーツガン振興協同組合」（JASG）にて安全認定されているCO2小型カートリッジボンベのみ</li>
-                                                    </ul>
-                                                </li>
-                                                <li>74gサイズボンベ
-                                                    <ul class="list-[circle] pl-6 mt-1 space-y-1 text-sm">
-                                                        <li>※サンプロジェクト グリーンガスに限る</li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!-- 使用可能アイテム -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">使用可能アイテム</h4>
-                                        <ul class="list-disc pl-6 space-y-3 text-gray-700">
-                                            <li>トルネード/サイクロン
-                                                <ul class="list-[circle] pl-6 mt-2 space-y-2 text-sm">
-                                                    <li>※腰より下の位置よりアンダースローで約２m以内に投げてください。その際、人に当たらない様に投げてください。建物の窓から投げ入れる等は禁止とさせて頂きます。</li>
-                                                </ul>
-                                            </li>
-                                            <li>モスカート</li>
-                                            <li>BBシャワー</li>
-                                            <li>クレイモア</li>
-                                        </ul>
-                                        <p class="text-gray-700 text-sm mt-4">※ゲームによっては使用禁止になることがあります。</p>
-                                    </div>
-
-                                    <!-- ウエポン、アクセサリー類の持ち込み・使用制限 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">ウエポン、アクセサリー類の持ち込み・使用制限</h4>
-                                        <ul class="list-disc pl-6 space-y-3 text-gray-700">
-                                            <li>スタンガン、金属のナイフ類、金属のバヨネット（銃剣）、警棒、催涙スプレー、その他護身用アイテム等は持ち込みを禁止とします。</li>
-                                            <li>1000ルーメン以上のライトやオートストロボ機能は使用できません。前述のライトでも装備のみは可能とします。1000ルーメン以下のライト、また手動にてストロボ（ON→OFFを繰り返す行為）を行う場合は利用可能とします。</li>
-                                            <li>レーザーサイトは禁止します。装着するだけであれば問題ありません、また貸切等のイベントの際は予約時の代表者の責任の元、任意による使用は可。</li>
-                                            <li>40mike・大きな音がなるスタングレネードは禁止とします。</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- 安全規制 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">安全規制</h4>
-
-                                        <!-- アイウェア規定 -->
-                                        <div class="mb-6">
-                                            <p class="font-bold text-gray-800 mb-3">アイウェア規定</p>
-                                            <div class="text-gray-700 space-y-4">
-                                                <p>フィールド内ではメガネやサングラスのみでは「防弾基準」をクリアしておらず、BB弾が当たった時に割れてしまう可能性があるため単品での使用は不可となります。「防弾基準をクリアしている」ゴーグルやシューティンググラスの着用が必須となります。シューティンググラスの利用の場合はガスケットや落下防止のバンドの着用を推奨しております。またメッシュタイプのゴーグルにつきましては割れたBB弾の破片が目に入る可能性があるため禁止とさせて頂きます。</p>
-                                                <p>ゲーム中にゴーグルが曇った場合につきましては、足元も見えにくくなり大変危険です。アイウェアは決して外さず、速やかにヒットコールを行いフィールドの外に出るようご協力をお願い致します。その際、スタッフの協力が必要な場合は遠慮なくお声掛け下さい。</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- フェイスマスク規定 -->
-                                        <div>
-                                            <p class="font-bold text-gray-800 mb-3">フェイスマスク規定</p>
-                                            <p class="text-gray-700">フィールド内では、シリコンマスクやスチールメッシュマスク等の顔を守れるものを着用義務となります。</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- ヒット判定 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">ヒット判定</h4>
-                                        <ul class="list-disc pl-6 space-y-3 text-gray-700">
-                                            <li>当フィールドのヒット判定は、BB弾が「体」「銃」「装備品」のいずれに当たったの場合もヒットです。物や人に当たって跳ね返ってきた「跳弾」に当たった場合に関しては無効としておりますが、跳弾かどうか疑わしい場合はヒットコールのご協力をお願い致します。</li>
-                                            <li>味方から撃たれる行為、通称フレンドリーファイアは、撃った人・撃たれた人「双方ヒット」となります。他人のゲームの妨げをしてしまっているので、「すいませんでした」とお声掛け頂けますようにお願い致します。</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- ヒットコールについて -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">ヒットコールについて</h4>
-                                        <div class="text-gray-700 space-y-4">
-                                            <p>ヒットになった場合大きな声で「ヒット」と宣告して、手をあげるなど大きな身振りでヒットである事をアピールして下さい。またヒットコール後は速やかにリスポーン（復活）地点への移動やフィールド外へ退場してください。移動中も手を上げる（振る）ことや「ヒットです」「ヒット通ります」とアピールを続けながら移動、退場をして下さい。</p>
-                                            <p>ヒットコール後は「あそこから撃たれた」など敵の位置が分かるような会話は厳禁です。復活があるゲームではリスポーン（復活）後からなら情報共有を行うのは許可しております。</p>
-                                            <p>退場者の後ろに隠れるなどしての移動、盾にして戦うのは禁止です。</p>
-                                            <p>「当たったかな？」と思ったらヒットコールをするように心掛けて頂くと幸いです。またスタッフから「当たりましたよ」と指摘を受けた場合は、ヒットコールのご協力をお願いします。</p>
-                                            <p>厚着の服を着用、装備をしている場合は被弾に気がつき難くなります。装備を外して頂くなど、ご協力を要請する場合も御座いますがご了承ください。</p>
-                                            <p>敵・味方にかわらずヒット判定の指摘やヒット判定に関する会話は、一切禁止とします。そのような指摘等はトラブルの原因になりますので絶対にやめてください。</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- ゾンビ行為 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">ゾンビ行為</h4>
-                                        <p class="text-gray-700">BB弾が被弾しているのにも関わらずゲームを継続する通称「ゾンビ行為」は禁止です。ゾンビ行為を見つけた場合には直接本人には言わずフィールドスタッフまでご報告ください。</p>
-                                    </div>
-
-                                    <!-- 隙間撃ちの禁止 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">隙間撃ちの禁止</h4>
-                                        <p class="text-gray-700">バリケードの小さな隙間から銃口だけ出して射撃する行為です。隙間の定義は顔が入るか入らないかで判断して下さい。隙間であっても、隙間から銃口の先端までの距離が１m以上離れていれば射撃可能です。</p>
-                                    </div>
-
-                                    <!-- ブラインドショットの禁止 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">ブラインドショットの禁止</h4>
-                                        <p class="text-gray-700">ブラインドショットとは、バリケードからエアガンだけを出して射撃する行為です。</p>
-                                        <ol class="list-decimal pl-6 space-y-2 text-gray-700 mt-4">
-                                            <li>バリケードからエアガンだけを出して射撃する行為</li>
-                                            <li>バリケードを超える様に撃ち下ろす行為</li>
-                                            <li>視認している方向以外に射撃する行為</li>
-                                        </ol>
-                                        <p class="text-gray-700 mt-4">射撃の際はしっかり構え、狙って撃つ様にしてください。</p>
-                                    </div>
-
-                                    <!-- フィールド内での規定 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">フィールド内での規定</h4>
-                                        <ul class="list-disc pl-6 space-y-3 text-gray-700">
-                                            <li>当フィールドは傾斜もあるフィールドです。転倒やお客様同士の衝突などによる怪我を防ぐ為、ダッシュ、全力疾走は禁止ですが、すぐに止まれる速度で走るのは可能とします。</li>
-                                            <li>スライディングを行なって頂くのは構いませんが、バリケードにぶつからないようにお願いします。</li>
-                                            <li>身体をバリケードなどにこすりつけると怪我をしたり衣服を痛めたりする場合がございます。ご注意ください。</li>
-                                            <li>フィールド内に設置してあるドラム缶や木箱など障害物の移動は厳禁です。また、障害物の上に乗ることも禁止します。障害物に強く体当たり等すると倒れてくる可能性があり大変危険です。体当たり等はしないでください。</li>
-                                            <li>バリケードにもたれかかる、殴る・蹴るなどの施設の破壊に繋がる行為は禁止とします。</li>
-                                            <li>貴重品の管理はご自身にて厳重にお願いします。</li>
-                                            <li>飲酒はご遠慮ください（酒気を帯びた方もフィールド内には入れません）</li>
-                                            <li>施設の破損につきましては修理代金を請求させて頂きます。</li>
-                                            <li>当フィールド内での事故や怪我、盗難に関しまして当方は一切の責任等を負いかねます。予めご了承ください。</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- セーフティエリアの規定 -->
-                                    <div class="mb-10">
-                                        <h4 class="text-xl font-bold text-gray-800 mb-4">セーフティエリアの規定</h4>
-                                        <ul class="list-disc pl-6 space-y-3 text-gray-700">
-                                            <li>セーフティエリア内は禁煙、火気厳禁です。おタバコは喫煙所でお願いします。</li>
-                                            <li>セーフティエリア内での発砲は空撃ちを含め一切禁止です。</li>
-                                            <li>弾倉（マガジン）は必ず外してください。弾・ガス・バッテリーが入っていない状態でも弾倉（マガジン）は銃に刺さないで下さい。</li>
-                                            <li>自分も含めて銃口を人に向けないでください。</li>
-                                            <li>トリガーに指をかけた状態で、銃を持たないように心掛けてください。</li>
-                                            <li>フィールドやシューティングレンジから戻る際は必ずマガジンを外し、残弾処理（弾抜き）を行った後に安全位置（安全装置ON）をして下さい。</li>
-                                            <li>セーフティエリア内では、エアガンのセーフティレバーをいついかなる状況でも安全位置（安全装置ON）にしてください。</li>
-                                        </ul>
-                                    </div>
-
-                                    <!-- 定例会タイムスケジュールセクション -->
-                                    <div class="mt-16">
-                                        <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">定例会タイムスケジュール</h3>
-
-                                        <!-- 左右配置ボックス -->
-                                        <div class="flex flex-col md:flex-row gap-8 mb-8">
-                                            <!-- 左側：テキスト -->
-                                            <div class="flex-1">
-                                                <div class="bg-gray-50 p-8 rounded-lg">
-                                                    <div class="space-y-6 text-gray-800">
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">9:00</div>
-                                                            <div class="flex-1 pl-4">ゲートオープン</div>
-                                                        </div>
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">9:05</div>
-                                                            <div class="flex-1 pl-4">受付・弾速チェック</div>
-                                                        </div>
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">10:00</div>
-                                                            <div class="flex-1 pl-4">全体ブリーフィング</div>
-                                                        </div>
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">10:15</div>
-                                                            <div class="flex-1 pl-4">フィールドツアー</div>
-                                                        </div>
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">10:30</div>
-                                                            <div class="flex-1 pl-4">午前ゲームスタート</div>
-                                                        </div>
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">12:00</div>
-                                                            <div class="flex-1 pl-4">お昼休憩</div>
-                                                        </div>
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">13:00</div>
-                                                            <div class="flex-1 pl-4">午後ゲームスタート</div>
-                                                        </div>
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">16:00</div>
-                                                            <div class="flex-1 pl-4">ゲーム終了</div>
-                                                        </div>
-                                                        <div class="flex items-center">
-                                                            <div class="w-24 font-bold text-right">17:00</div>
-                                                            <div class="flex-1 pl-4">ゲートクローズ</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- 右側：画像縦配置 -->
-                                            <div class="flex-1">
-                                                <div class="space-y-6">
-                                                    <img src="assets/img/top_img_10.png" alt="タイムスケジュール画像1" class="w-full h-auto object-contain">
-                                                    <img src="assets/img/top_img_13.png" alt="タイムスケジュール画像2" class="w-full h-auto object-contain">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- 注意書き -->
-                                        <p class="text-gray-700">※ご来場いただきましたらまず、受付と弾速チェックの実施にご協力お願いします。</p>
-                                    </div>
-
-                                    <!-- レンタル・販売・設備セクション -->
-                                    <div class="mt-16">
-                                        <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">レンタル・販売・設備</h3>
-
-                                        <!-- レンタル -->
-                                        <div class="mb-10">
-                                            <h4 class="text-xl font-bold text-gray-800 mb-4">レンタル</h4>
-
-                                            <!-- テーブル -->
-                                            <div class="overflow-x-auto shadow-lg mb-6">
-                                                <div class="flex justify-center">
-                                                    <table class="w-full md:w-[930px]">
-                                                        <colgroup>
-                                                            <col class="w-2/3"> <!-- 品名列 67% -->
-                                                            <col class="w-1/3"> <!-- 料金列 33% -->
-                                                        </colgroup>
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">品名</th>
-                                                                <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">料金</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">銃（電動ガン）</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">2,000円</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">迷彩服</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">1,500円　<span class="text-xs">※数に限りがあります。</span></td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">ゴーグル</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">500円</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">バッテリー貸し出し</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">無料</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">バッテリー充電</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">無料</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                            <!-- 説明文 -->
-                                            <p class="text-gray-700">様々なレンタルガンをご用意しておりますので、アサルトライフルを借りたけどスナイパーライフルに替えたい等はお気軽にお申し付け下さい。またその場合の追加料金は掛かりません。</p>
-                                        </div>
-
-                                        <!-- アイテム販売 -->
-                                        <div class="mb-10">
-                                            <h4 class="text-xl font-bold text-gray-800 mb-4">アイテム販売</h4>
-
-                                            <!-- テーブル -->
-                                            <div class="overflow-x-auto shadow-lg mb-6">
-                                                <div class="flex justify-center">
-                                                    <table class="w-full md:w-[930px]">
-                                                        <colgroup>
-                                                            <col class="w-full"> <!-- 品名列 100% -->
-                                                        </colgroup>
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">品名</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">バイオBB弾（G&G製0.2g、0.25g）</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">フロンガス　（HFC134a）</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">Co2（12g）</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">電池　各種</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">軍手、、、etc</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-
-                                            <!-- 説明文 -->
-                                            <p class="text-gray-700">様々な消耗品など販売しております。</p>
-                                        </div>
-
-                                        <!-- 設備 -->
-                                        <div class="mb-10">
-                                            <h4 class="text-xl font-bold text-gray-800 mb-4">設備</h4>
-
-                                            <!-- テーブル -->
-                                            <div class="overflow-x-auto shadow-lg mb-6">
-                                                <div class="flex justify-center">
-                                                    <table class="w-full md:w-[930px]">
-                                                        <colgroup>
-                                                            <col class="w-2/3"> <!-- 設備名列 67% -->
-                                                            <col class="w-1/3"> <!-- 数量列 33% -->
-                                                        </colgroup>
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">設備名</th>
-                                                                <th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">数量</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">電子レンジ</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">1台</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">電子ポット</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">1台</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">飲料自動販売機</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">1台</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">簡易トイレ</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">男子 3台　女子 1台</td>
-                                                            </tr>
-                                                            <tr class="border-b border-gray-200">
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">簡易更衣室</td>
-                                                                <td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left"></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- アクセスセクション -->
-                                    <div class="mt-16">
-                                        <h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">アクセス</h3>
-
-                                        <!-- 住所・営業時間情報 -->
-                                        <div class="mb-8">
-                                            <p class="text-gray-700 mb-4">〒586-0052 大阪府河内長野市河合寺４２６</p>
-                                            <p class="text-gray-700 mb-2">営業時間：デイゲーム　AM10:00～PM16:00（フィールド開閉時間　AM９:00～PM17:00）</p>
-                                            <p class="text-gray-700 mb-2">駐車場：50台以上可能</p>
-                                            <p class="text-gray-700">定休日：不定休</p>
-                                        </div>
-
-                                        <!-- Googleマップiframe -->
-                                        <div class="flex justify-center">
-                                            <div class="w-full">
-                                                <iframe
-                                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.4323198921993!2d135.5873269!3d34.441172099999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000d5cd5ed75547%3A0xad32042edb6a1caa!2z44K144OQ44Kk44OQ44Or44Ky44O844Og44OV44Kj44O844Or44OJIHdlc3QgZmllbGQ!5e0!3m2!1sja!2sjp!4v1707145027538!5m2!1sja!2sjp"
-                                                    width="100%"
-                                                    height="450"
-                                                    style="border:0;"
-                                                    allowfullscreen=""
-                                                    loading="lazy"
-                                                    referrerpolicy="no-referrer-when-downgrade"
-                                                    class="w-full max-w-[1100px] mx-auto">
-                                                </iframe>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- WEST FIELD PVボックス -->
-                                    <div class="mt-16">
-                                        <div class="flex justify-center">
-                                            <div class="w-full md:w-[990px] h-[250px] relative overflow-hidden group">
-                                                <!-- 背景イメージ -->
-                                                <div
-                                                    class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                                                    style="background-image: url('assets/img/top_img_11-1400x557.png');"
-                                                ></div>
-
-                                                <!-- オーバーレイ（背景を少し暗く） -->
-                                                <div class="absolute inset-0 bg-black/30"></div>
-
-                                                <!-- 中央テキストとボタン -->
-                                                <div class="relative h-full flex flex-col items-center justify-center text-white text-center px-4">
-                                                    <h3 class="text-3xl font-bold mb-2">WEST FIELD PV</h3>
-                                                    <p class="text-lg mb-6">WEST FIELDの魅力を動画にしました。</p>
-
-                                                    <!-- 角丸ボタン -->
-                                                    <a href="https://westfield2023.net/westfield_video/" class="inline-block" target="_blank">
-                                                        <button class="bg-[#FF0000] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#3da5a1] transition-colors duration-300 flex items-center justify-center gap-3">
-                                                            <i class="fab fa-youtube text-xl"></i>
-                                                            <span class="text-lg">動画を見る</span>
-                                                        </button>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- X（Twitter）リンク -->
-                                    <div class="mt-16">
-                                        <div class="flex justify-center">
-                                            <div class="w-full md:w-[990px] text-center">
-                                                <a href="https://twitter.com/310westfield?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 text-[#1DA1F2] hover:text-[#0d8bd9] transition-colors duration-300">
-                                                    <i class="fab fa-twitter text-3xl"></i>
-                                                    <span class="text-2xl font-bold">Tweets by 310westfield</span>
-                                                    <small>ツイートを見る</small>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- アルバイト募集ボックス -->
-                                    <div class="mt-16">
-                                        <div class="flex justify-center">
-                                            <div class="w-full md:w-[990px] h-[272px] relative overflow-hidden">
-                                                <!-- 背景イメージ -->
-                                                <div
-                                                    class="absolute inset-0 bg-center"
-                                                    style="background-image: url('assets/img/top_img_01-1.png');"
-                                                ></div>
-
-                                                <!-- オーバーレイ（背景を少し暗く） -->
-                                                <div class="absolute inset-0 bg-black/70"></div>
-
-                                                <!-- 左右配置コンテンツ -->
-                                                <div class="relative h-full flex flex-col md:flex-row">
-                                                    <!-- 左側：アルバイト募集情報 -->
-                                                    <div class="flex-1 p-8 flex flex-col justify-center text-white">
-                                                        <h3 class="text-2xl font-bold mb-4">アルバイト募集</h3>
-                                                        <div class="space-y-3">
-                                                            <p class="font-medium">年齢18歳〜45歳まで</p>
-                                                            <p class="font-medium">時給1,300円〜1,500円</p>
-                                                            <p class="text-sm">定例会開催時、貸切開催時の受付業務やゲームマスターと言ったフィールド運営が主な勤務内容となります。</p>
-                                                            <p class="text-sm mt-4">平日または土日祝の開催時の出勤希望日は都度相談に応じます。</p>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- 右側：連絡先情報 -->
-                                                    <div class="flex-1 p-8 flex flex-col justify-center text-white">
-                                                        <h3 class="text-2xl font-bold mb-4">連絡先</h3>
-                                                        <div class="space-y-4">
-                                                            <div>
-                                                                <p class="font-medium">【担当者】オーナー 西野</p>
-                                                                <p class="font-medium">【連絡先】090-9715-1979</p>
-                                                            </div>
-                                                            <p class="text-sm">「アルバイトの件で〜」と、お気軽にご連絡ください。</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </main>
-
-    <!-- フッター -->
-    <footer>
-        <!-- フッターA -->
-        <div class="h-[337px] relative">
-            <!-- 背景画像（Fixedで下に配置） -->
-            <div
-	class="absolute inset-0 bg-fixed bg-bottom bg-no-repeat"
-	style="
-		background-image: url('assets/img/footer_img.png');
-	"
-></div>
-
-
-            <!-- テキストコンテンツ -->
-            <div class="relative h-full flex items-center justify-center">
-                <div class="text-center text-muted px-4">
-                    <p class="font-bold text-2xl mb-4">About us</p>
-                    <div class="h-px w-16 mx-auto mb-6"></div>
-                    <div class="font-light space-y-2">
-                        <p class="text-lg">サバイバルゲームフィールド west field</p>
-                        <p class="text-base">大阪府河内長野市河合寺426</p>
-                        <p class="text-base">営業時間： AM9:00～PM17:00</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- フッターB -->
-        <div class="h-[48px] bg-[#EFEFEF] flex items-center justify-center">
-            <p class="text-gray-600 text-sm">Copyright 2026 © westfield</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
-
-    <script>
-    fetch('header.html')
-    .then(res => res.text())
-    .then(data => {
-        document.getElementById('header').innerHTML = data;
-    });
-    </script>
-    <script src="assets/js/main.js"></script>
+	<!-- Header -->
+	<div id="header"></div>
+
+	<!-- Main Content -->
+	<main class="pt-0 min-h-screen">
+		<!-- メインカラム（1080px内側が白背景、外側は背景画像） -->
+		<div class="max-w-large-12 mx-auto w-full px-4 py-12 bg-white mt-[65px]">
+			<!-- 1. 中央にロゴマーク 173x173px -->
+			<div class="flex justify-center mb-6">
+				<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
+			</div>
+
+			<!-- 2. ロゴの下にテキスト -->
+			<div class="text-center mb-12">
+				<h1 class="md:text-4xl text-3xl font-bold text-gray-800 mb-2">WEST FIELD</h1>
+				<p class="md:text-xl text-lg text-gray-600">Survival Game Field in Osaka</p>
+			</div>
+
+				<!-- 3. 画像 assets/img/concept_img1-1.jpg 下から上にふわっと出る表現 -->
+				<div class="flex justify-center mb-16">
+					<div id="conceptImageContainer" class="relative overflow-hidden">
+						<img id="conceptImage" src="assets/img/concept_img1-1.jpg" alt="コンセプト画像" class="w-full max-w-4xl">
+					</div>
+				</div>
+
+				<!-- 4. 料金表 -->
+				<div class="mb-16">
+					<div class="flex items-center justify-center mb-8">
+						<div class="flex-grow h-px bg-gray-300"></div>
+						<h2 class="md:text-3xl text-2xl font-bold text-gray-800 mx-4 md:mx-6">利用料金</h2>
+						<div class="flex-grow h-px bg-gray-300"></div>
+					</div>
+
+					<!-- テーブル表記（角丸削除、背景色変更） -->
+					<div class="overflow-x-auto shadow-lg">
+						<div class="flex justify-center">
+							<table class="w-full md:w-[930px]">
+								<colgroup>
+									<col class="w-1/2"> <!-- 区分列 50% -->
+									<col class="w-1/2"> <!-- 料金列 50% -->
+								</colgroup>
+								<thead>
+									<tr>
+										<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">区分</th>
+										<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">料金</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- 1行目：大人（背景色付き） -->
+									<tr class="border-b border-gray-200">
+										<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">大人<span class="text-xs">（18歳以上）</span></td>
+										<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">3,500円</td>
+									</tr>
+									<!-- 2行目：中学〜高校生（白背景） -->
+									<tr class="border-b border-gray-200">
+										<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">中学〜高校生<span class="text-xs">（12歳以上18歳未満）</span></td>
+										<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">3,000円</td>
+									</tr>
+									<!-- 3行目：小学生（背景色付き） -->
+									<tr class="border-b border-gray-200">
+										<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">小学生<span class="text-xs">（10歳以上12歳未満）</span></td>
+										<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">1,500円</td>
+									</tr>
+									<!-- 4行目：レディース（白背景） -->
+									<tr class="border-b border-gray-200">
+										<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">レディース</td>
+										<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">2,500円</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="py-6 px-4 md:px-6 bg-white">
+											<div class="space-y-3">
+												<div class="flex items-center">
+													<span class="font-bold mr-4 md:text-base text-sm text-[#000000]">学割</span>
+													<span class="md:text-base text-sm text-[#000000]">500円引き</span>
+												</div>
+												<p class="text-xs text-[#000000] pl-6 md:pl-8">（学生証確認あり。受付時に必ずお持ちください）</p>
+
+												<div class="flex items-center mt-4">
+													<span class="font-bold mr-4 md:text-base text-sm text-[#000000]">早割</span>
+													<span class="md:text-base text-sm text-[#000000]">200円引き</span>
+												</div>
+												<p class="text-xs text-[#000000] pl-6 md:pl-8">（2週間以上先の予約で割引となります。）</p>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- 注意書き -->
+					<div class="mt-6 p-4 bg-amber-50 border border-amber-200">
+						<p class="text-amber-800 text-center font-medium md:text-base text-sm">【注意】18歳未満の方は保護者同伴でお願いします。</p>
+					</div>
+
+					<!-- 1. お支払い方法セクション -->
+					<div class="mt-16">
+						<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300 w-full md:w-[990px] mx-auto">お支払い方法</h3>
+						<div class="flex justify-center">
+							<div class="w-full md:w-[990px]">
+								<div class="flex justify-center mb-6">
+									<img src="assets/img/pay_img.png" alt="お支払い方法" class="max-w-full h-auto">
+								</div>
+								<div class="text-gray-700 space-y-2">
+									<p>現金または上記決済方法がご利用可能です。</p>
+									<p class="text-sm">※Smart Code™は、メルペイ、FamiPay、銀行Payなど含む20種のQR決済サービスに対応しています。</p>
+									<p class="text-sm">※Alipay+は、16種の海外のQR決済サービスに対応しています。</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- 2. メンバーズ入会費セクション -->
+					<div class="mt-16">
+						<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300 w-full md:w-[990px] mx-auto">メンバーズ入会費</h3>
+						<div class="flex justify-center">
+							<div class="w-full md:w-[990px]">
+								<h4 class="text-xl font-bold text-gray-800 mb-4">メンバーカード</h4>
+
+								<!-- 費用表示（左右配置ボックス） -->
+								<div class="bg-gray-50 p-6 rounded flex flex-col md:flex-row items-center justify-between gap-6">
+									<!-- 左側：文章ブロック -->
+									<div class="flex-1">
+										<div class="text-gray-700 space-y-4">
+											<p>初めてご利用の方は、ご住所が記載されている公的機関の発行する身分証明書（免許証、保険証、マイナンバーカード等）を<strong>必ずご持参の上、受付にてご提示をお願い申し上げます。</strong></p>
+											<p>その際に専用のメンバーズカードを作成しお渡し致します。</p>
+											<p>次回以降はこのメンバーズカードをご提示ください。</p>
+											<p>万が一、メンバーズカードをお忘れになった場合や紛失された場合は、メンバーズカードを再発行し、再発行手数料をいただきます。あらかじめご了承ください。</p>
+										</div>
+									</div>
+									<!-- 右側：カードイメージ -->
+									<div class="flex-shrink-0">
+										<img src="assets/img/top_img_01-1.png" alt="メンバーズカードイメージ" class="w-[435px] h-[198px] object-contain">
+									</div>
+								</div>
+
+								<!-- 費用明示行 -->
+								<div class="mt-4 flex justify-between items-center bg-white p-4 border border-gray-200 rounded">
+									<span class="text-gray-800 font-medium">発行手数料</span>
+									<span class="text-gray-800 font-bold text-xl">500円</span>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Googleカレンダーiframeセクション -->
+					<div class="mt-16">
+						<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300 w-full md:w-[990px] mx-auto">定例会・貸切ご予約</h3>
+						<div class="flex justify-center">
+							<div class="w-full md:w-[990px]">
+								<!-- Googleカレンダーiframe（ユーザーが挿入済み） -->
+								<div class="flex justify-center">
+									<!-- ここにGoogleカレンダーのiframeが挿入されます -->
+									<div class="text-center text-gray-500 p-8 border border-gray-300 rounded w-full">
+																				<iframe loading="lazy" src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=Asia%2FTokyo&amp;bgcolor=%23ffffff&amp;src=MzEwLndlc3QuZmllbGRAZ21haWwuY29t&amp;src=MWQxNmI0NWMzN2VmYzcwYjk3ZWUzZjZkYjY4YzBiNDk2NGY1Y2E2Y2Q0MzZmMjUxMzc1MzMyMTAzZWU4OGJkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGJjMWVjYTE4NzUzYzNlNjEwOWNkNWRmZmExNmQzZjI0ZDMzMWUyNWYxOWJiNWFkOGM3ODE3MGJkOTlmOTk3ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=YWY2ZDA2OTE4ZDVlNTBmNzZlYjE1MTcxMGY0MDlmZTBjYWE2NGIwYmQwMzBhM2RjM2M0MGEwMzRiYjhmZDZkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGNkMmJlODU3NzljMjc0NWE2MTkwYWU3ODVlNjgxMWE0MjQ5ZWUwOGExM2VkZDNjYjAyNjY0MTQ1MTY4N2Q2OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%2333B679&amp;color=%23002ccc&amp;color=%23616161&amp;color=%23F09300&amp;color=%23D50000" style="margin:auto;" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- ご予約フォームボタンセクション -->
+					<div class="mt-12">
+						<div class="flex justify-center">
+							<div class="w-full md:w-[990px]">
+								<a href="#" class="block w-full">
+									<button class="w-full bg-[#4DB7B3] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#3da5a1] transition-colors duration-300 flex items-center justify-center gap-3">
+										<i class="fas fa-envelope text-xl"></i>
+										<span class="text-xl">ご予約フォーム</span>
+									</button>
+								</a>
+
+								<!-- 説明文 -->
+								<div class="mt-8 text-gray-700 text-sm space-y-3">
+									<p><strong>【定例会】</strong>４人より開催致します。「ご予約フォーム」よりご予約してください。表記が無い日はご予約出来ません。</p>
+									<p><strong>【開催決定】</strong>定例会の開催を致します。最高40名様までご予約頂けます。定例会開催日は飛び込みでのご参加も可能ですが、その場合はお席のご用意が出来ない可能性もありますので事前ご予約をお願い致します。</p>
+									<p><strong>【満員御礼】</strong>定例会のご予約が満員の為、ご参加はキャンセル待ちとなります。</p>
+									<p><strong>【貸切募集中】</strong>「お問い合わせ」よりご予約ください。表記が無い日はご予約頂けません。</p>
+									<p><strong>【貸切決定】</strong>貸切時の一般の方の見学、ゲームへの参加は出来ません。</p>
+									<p><strong>【休日】</strong>フィールドメンテナンス等を行なっております。門が空いている場合が御座いますが、お客様のご入場は難くお断りさせて頂いております。</p>
+								</div>
+
+								<!-- お天気モジュール -->
+								<div class="mt-4">
+									<object type="text/html" data="otenki.html" class="w-full h-auto"></object>
+								</div>
+
+								<!-- 追加文章セクション -->
+								<div class="mt-12">
+									<div class="flex justify-center">
+										<div class="w-full md:w-[990px]">
+											<!-- 定例会における開催中止条件 -->
+											<div class="mb-10">
+												<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">定例会における開催中止条件</h3>
+												<div class="text-gray-700 space-y-4">
+													<p>開催人数を下回った場合、または開催日の天候等を考慮し開催するか否かを前日の20時〜21時頃に決定致します。</p>
+													<p>中止の場合はX（旧Twitter）やエントリー頂いたメールアドレスへその趣旨のご連絡を差し上げます。</p>
+												</div>
+											</div>
+
+											<!-- エントリーキャンセルについて -->
+											<div class="mb-10">
+												<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">エントリーキャンセルについて</h3>
+												<div class="text-gray-700 space-y-4">
+													<p>やむを得ずキャンセルされる場合は前日、20時までに「お問い合わせ」よりその趣旨をご連絡下さい。</p>
+													<p>当日、キャンセルをせざるを得ない場合は緊急連絡先（090-9715-1979）まで必ずご一報ください。</p>
+													<p class="font-bold text-red-600">「無断キャンセル」につきましては次回エントリー時に２回分の参加料を徴収させて頂きます。</p>
+												</div>
+											</div>
+
+											<!-- フィールド貸切料金セクション -->
+											<div class="mt-16">
+												<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">フィールド貸切料金</h3>
+
+												<!-- テーブル -->
+												<div class="overflow-x-auto shadow-lg mb-6">
+													<div class="flex justify-center">
+														<table class="w-full md:w-[930px]">
+															<colgroup>
+																<col class="w-1/3"> <!-- 区分列 33% -->
+																<col class="w-2/3"> <!-- 料金列 67% -->
+															</colgroup>
+															<thead>
+																<tr>
+																	<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">区分</th>
+																	<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">料金</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr class="border-b border-gray-200">
+																	<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">定員</td>
+																	<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">40名様</td>
+																</tr>
+																<tr class="border-b border-gray-200">
+																	<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">平日</td>
+																	<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">14,000円　<span class="text-xs">※4名様まで。以降1名様追加毎に3,000円</span></td>
+																</tr>
+																<tr class="border-b border-gray-200">
+																	<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">土曜日</td>
+																	<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">70,000円　<span class="text-xs">※20名様まで。以降1名様追加毎に3,500円</span></td>
+																</tr>
+																<tr class="border-b border-gray-200">
+																	<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">日曜日・祝日</td>
+																	<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">105,000円　<span class="text-xs">※30名様まで。以後1名様追加毎に3,500円</span></td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+
+												<!-- 注意書き -->
+												<p class="text-sm text-gray-600 mb-8">貸切はお問い合わせにて直接ご連絡ください。</p>
+
+												<!-- 角丸ボタン（ご予約フォームと同じ体裁） -->
+												<div class="mb-8">
+													<a href="#" class="block w-full">
+														<button class="w-full bg-[#4DB7B3] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#3da5a1] transition-colors duration-300 flex items-center justify-center gap-3">
+															<i class="fas fa-envelope text-xl"></i>
+															<span class="text-xl">お問い合わせ</span>
+														</button>
+													</a>
+												</div>
+
+												<!-- リスト -->
+												<div class="text-gray-700 space-y-4 mb-8">
+													<ul class="list-disc pl-6 space-y-3">
+														<li>当フィールド貸切時に起きた怪我などの責任は一切負いません。お客様での安全管理の徹底をよろしくお願いいたします。</li>
+														<li>ゲーム進行はお客様にして頂きます。</li>
+														<li>スタッフが進行をお手伝いする場合は別途相談となります。</li>
+														<li>営業時間外の電話対応及びメールの返信はできません。予めご了承下さい。メールの返信に関しては翌営業時間にさせていただきます。</li>
+														<li>貸切におけるキャンセル料は下記の通り発生いたします。
+															<ul class="list-[circle] pl-6 mt-2 space-y-2">
+																<li>ご利用当日の５日前まで…ご利用料金の半額</li>
+																<li>５日前からご利用当日…ご利用料金の全額</li>
+															</ul>
+														</li>
+													</ul>
+												</div>
+
+												<!-- 追加説明 -->
+												<div class="bg-blue-50 p-6 border border-blue-200 rounded-lg space-y-4">
+													<p class="text-gray-700">※雨天予報時でも、基本的にフィールド側から中止を要請することはございませんが、台風接近や地震などの災害があった場合には、当フィールド側から中止をお願いすることがあります。その場合のキャンセル料金は発生しません。</p>
+													<p class="text-gray-700">※雨天予報時の場合につきまして、事前にお電話等で打ち合わせをしていただくことで、当日実施場合は参加費の割引や代替案の提示もしくは、お客様の事情を考慮し、スタッフの判断で通常よりも早い段階でのキャンセルの受付や、特例でキャンセル料金無しで承れる場合があります。</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- レギュレーションセクション -->
+								<div class="mt-16">
+									<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">レギュレーション</h3>
+
+									<!-- 画像 -->
+									<div class="mb-8">
+										<img src="assets/img/top_img_04.png" alt="レギュレーション" class="w-full md:w-[990px] h-auto shadow-lg shadow-gray-400/30">
+									</div>
+
+									<!-- 参加資格について -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">参加資格について</h4>
+										<p class="text-gray-700">レギュレーション及びルールを理解し遵守できる方。（日本語による意思疎通の図れないお客様のご利用は頂けません）</p>
+									</div>
+
+									<!-- 未成年者の参加資格について -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">未成年者の参加資格について</h4>
+										<ul class="list-disc pl-6 space-y-3 text-gray-700">
+											<li>10歳～17歳の未成年の方が参加する場合は、保護者の方が親権者同意書へサインをして頂く必要があります。</li>
+											<li>小学生の方のみでのゲームへの参加はできません。保護者の方のフィールド内での同伴もしくは見学エリアでの監視が必要となります。</li>
+											<li>中学生以上の未成年の方は、保護者による当フィールドまでの送迎・受付を以てお一人でのゲームの参加を認めるものとします。</li>
+											<li>18歳未満の方は、ゲームに使用する銃は47m/s以下の銃（10禁エアガンまたは18禁エアガンのデチューン）に限定いたします。</li>
+										</ul>
+									</div>
+
+									<!-- 使用可能弾 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">使用可能弾</h4>
+										<p class="text-gray-700">0.12g～0.25gの6mm、生分解性のバイオ弾、及び蓄光バイオ弾のみ。</p>
+										<p class="text-gray-700 text-sm mt-2">※生分解性以外のプラスチック弾及びセミバイオ弾の使用、持込みは禁止です。</p>
+									</div>
+
+									<!-- 初速 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">初速</h4>
+
+										<!-- 左右配置ボックス -->
+										<div class="flex flex-col md:flex-row gap-6 mb-6">
+											<!-- 左側：18歳以上用エアガン -->
+											<div class="flex-1 bg-gray-50 p-6 rounded-lg">
+												<h5 class="text-lg font-bold text-gray-800 mb-4">18歳以上用エアガン</h5>
+												<ul class="space-y-2 text-gray-700">
+													<li>・0.12g弾：122m/sec未満</li>
+													<li>・0.2g弾 ：95m/sec未満</li>
+													<li>・0.25g弾：85m/sec未満</li>
+												</ul>
+											</div>
+
+											<!-- 右側：10歳以上用エアガン -->
+											<div class="flex-1 bg-gray-50 p-6 rounded-lg">
+												<h5 class="text-lg font-bold text-gray-800 mb-4">10歳以上用エアガン</h5>
+												<ul class="space-y-2 text-gray-700">
+													<li>・0.12g弾：47m/sec未満</li>
+													<li>・0.2g弾 ：36m/sec未満</li>
+												</ul>
+											</div>
+										</div>
+
+										<!-- リスト -->
+										<ul class="list-disc pl-6 space-y-3 text-gray-700">
+											<li>ゲームに使用されるエアガンは弾速チェック致します。</li>
+											<li>弾速の上限は、弾の重さごとに異なります。初速計測の際にご使用になられる弾の重量をお伺い致します。</li>
+											<li>当フィールドは標高が少し高い為、ご自宅や他フィールド様で計測した初速から変動する場合が御座います。余裕をもった初速でのセッティングをお願い致します。</li>
+											<li>減速ハイダーの使用は不可とさせて頂いております。</li>
+											<li>弾速を計測して上記の数値を超えた銃については、お帰りの際まで受付にてお預かりする場合があります。</li>
+											<li>弾速チェックを意図的にごまかし、法定初速を超えたエアガンを使用していることが発覚した場合には即時警察への通報、以後の当施設への出入り禁止処分とします。</li>
+											<li>外部ソースは「サンプロジェクト」製のみ使用を許可しております。計測の際はバルブを全開放にした状態で計測をさせていただきます。</li>
+											<li>抜き打ちチェックをさせて頂く場合も御座います。</li>
+										</ul>
+									</div>
+
+									<!-- 使用可能発射サイクル、発射弾数 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">使用可能発射サイクル、発射弾数</h4>
+										<ul class="list-disc pl-6 space-y-3 text-gray-700">
+											<li>全てのエリアでセミオートのみ可能とします。
+												<ul class="list-[circle] pl-6 mt-2 space-y-2">
+													<li>フルオート、バースト、バイナリーショット、5タップを超える発射は全て禁止です。</li>
+												</ul>
+											</li>
+											<li>電動ショットガン、フルオートのみのエアガンは使用できません。</li>
+											<li>ショットガンは1回の発射弾数が6発以上のものは使用できません。
+												<ul class="list-[circle] pl-6 mt-2 space-y-2">
+													<li>（セレクターで5発以下に切り替えられるものは使用可能です）</li>
+												</ul>
+											</li>
+											<li>2024年4月からガスショットガン（セミオートのみ）使用が可能になりました。</li>
+										</ul>
+									</div>
+
+									<!-- 利用可能パワーソース -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">利用可能パワーソース</h4>
+
+										<!-- フロンガス -->
+										<div class="mb-6">
+											<p class="font-bold text-gray-800 mb-3">フロンガス</p>
+											<ul class="list-disc pl-6 space-y-2 text-gray-700">
+												<li>HFC134a</li>
+												<li>HFC152a</li>
+												<li>HFO1234ze+LPG</li>
+											</ul>
+										</div>
+
+										<!-- CO2 -->
+										<div>
+											<p class="font-bold text-gray-800 mb-3">CO2</p>
+											<ul class="list-disc pl-6 space-y-2 text-gray-700">
+												<li>12gサイズボンベ
+													<ul class="list-[circle] pl-6 mt-1 space-y-1 text-sm">
+														<li>※「全日本トイガン安全協会」（STGA）や「日本エアースポーツガン振興協同組合」（JASG）にて安全認定されているCO2小型カートリッジボンベのみ</li>
+													</ul>
+												</li>
+												<li>74gサイズボンベ
+													<ul class="list-[circle] pl-6 mt-1 space-y-1 text-sm">
+														<li>※サンプロジェクト グリーンガスに限る</li>
+													</ul>
+												</li>
+											</ul>
+										</div>
+									</div>
+
+									<!-- 使用可能アイテム -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">使用可能アイテム</h4>
+										<ul class="list-disc pl-6 space-y-3 text-gray-700">
+											<li>トルネード/サイクロン
+												<ul class="list-[circle] pl-6 mt-2 space-y-2 text-sm">
+													<li>※腰より下の位置よりアンダースローで約２m以内に投げてください。その際、人に当たらない様に投げてください。建物の窓から投げ入れる等は禁止とさせて頂きます。</li>
+												</ul>
+											</li>
+											<li>モスカート</li>
+											<li>BBシャワー</li>
+											<li>クレイモア</li>
+										</ul>
+										<p class="text-gray-700 text-sm mt-4">※ゲームによっては使用禁止になることがあります。</p>
+									</div>
+
+									<!-- ウエポン、アクセサリー類の持ち込み・使用制限 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">ウエポン、アクセサリー類の持ち込み・使用制限</h4>
+										<ul class="list-disc pl-6 space-y-3 text-gray-700">
+											<li>スタンガン、金属のナイフ類、金属のバヨネット（銃剣）、警棒、催涙スプレー、その他護身用アイテム等は持ち込みを禁止とします。</li>
+											<li>1000ルーメン以上のライトやオートストロボ機能は使用できません。前述のライトでも装備のみは可能とします。1000ルーメン以下のライト、また手動にてストロボ（ON→OFFを繰り返す行為）を行う場合は利用可能とします。</li>
+											<li>レーザーサイトは禁止します。装着するだけであれば問題ありません、また貸切等のイベントの際は予約時の代表者の責任の元、任意による使用は可。</li>
+											<li>40mike・大きな音がなるスタングレネードは禁止とします。</li>
+										</ul>
+									</div>
+
+									<!-- 安全規制 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">安全規制</h4>
+
+										<!-- アイウェア規定 -->
+										<div class="mb-6">
+											<p class="font-bold text-gray-800 mb-3">アイウェア規定</p>
+											<div class="text-gray-700 space-y-4">
+												<p>フィールド内ではメガネやサングラスのみでは「防弾基準」をクリアしておらず、BB弾が当たった時に割れてしまう可能性があるため単品での使用は不可となります。「防弾基準をクリアしている」ゴーグルやシューティンググラスの着用が必須となります。シューティンググラスの利用の場合はガスケットや落下防止のバンドの着用を推奨しております。またメッシュタイプのゴーグルにつきましては割れたBB弾の破片が目に入る可能性があるため禁止とさせて頂きます。</p>
+												<p>ゲーム中にゴーグルが曇った場合につきましては、足元も見えにくくなり大変危険です。アイウェアは決して外さず、速やかにヒットコールを行いフィールドの外に出るようご協力をお願い致します。その際、スタッフの協力が必要な場合は遠慮なくお声掛け下さい。</p>
+											</div>
+										</div>
+
+										<!-- フェイスマスク規定 -->
+										<div>
+											<p class="font-bold text-gray-800 mb-3">フェイスマスク規定</p>
+											<p class="text-gray-700">フィールド内では、シリコンマスクやスチールメッシュマスク等の顔を守れるものを着用義務となります。</p>
+										</div>
+									</div>
+
+									<!-- ヒット判定 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">ヒット判定</h4>
+										<ul class="list-disc pl-6 space-y-3 text-gray-700">
+											<li>当フィールドのヒット判定は、BB弾が「体」「銃」「装備品」のいずれに当たったの場合もヒットです。物や人に当たって跳ね返ってきた「跳弾」に当たった場合に関しては無効としておりますが、跳弾かどうか疑わしい場合はヒットコールのご協力をお願い致します。</li>
+											<li>味方から撃たれる行為、通称フレンドリーファイアは、撃った人・撃たれた人「双方ヒット」となります。他人のゲームの妨げをしてしまっているので、「すいませんでした」とお声掛け頂けますようにお願い致します。</li>
+										</ul>
+									</div>
+
+									<!-- ヒットコールについて -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">ヒットコールについて</h4>
+										<div class="text-gray-700 space-y-4">
+											<p>ヒットになった場合大きな声で「ヒット」と宣告して、手をあげるなど大きな身振りでヒットである事をアピールして下さい。またヒットコール後は速やかにリスポーン（復活）地点への移動やフィールド外へ退場してください。移動中も手を上げる（振る）ことや「ヒットです」「ヒット通ります」とアピールを続けながら移動、退場をして下さい。</p>
+											<p>ヒットコール後は「あそこから撃たれた」など敵の位置が分かるような会話は厳禁です。復活があるゲームではリスポーン（復活）後からなら情報共有を行うのは許可しております。</p>
+											<p>退場者の後ろに隠れるなどしての移動、盾にして戦うのは禁止です。</p>
+											<p>「当たったかな？」と思ったらヒットコールをするように心掛けて頂くと幸いです。またスタッフから「当たりましたよ」と指摘を受けた場合は、ヒットコールのご協力をお願いします。</p>
+											<p>厚着の服を着用、装備をしている場合は被弾に気がつき難くなります。装備を外して頂くなど、ご協力を要請する場合も御座いますがご了承ください。</p>
+											<p>敵・味方にかわらずヒット判定の指摘やヒット判定に関する会話は、一切禁止とします。そのような指摘等はトラブルの原因になりますので絶対にやめてください。</p>
+										</div>
+									</div>
+
+									<!-- ゾンビ行為 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">ゾンビ行為</h4>
+										<p class="text-gray-700">BB弾が被弾しているのにも関わらずゲームを継続する通称「ゾンビ行為」は禁止です。ゾンビ行為を見つけた場合には直接本人には言わずフィールドスタッフまでご報告ください。</p>
+									</div>
+
+									<!-- 隙間撃ちの禁止 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">隙間撃ちの禁止</h4>
+										<p class="text-gray-700">バリケードの小さな隙間から銃口だけ出して射撃する行為です。隙間の定義は顔が入るか入らないかで判断して下さい。隙間であっても、隙間から銃口の先端までの距離が１m以上離れていれば射撃可能です。</p>
+									</div>
+
+									<!-- ブラインドショットの禁止 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">ブラインドショットの禁止</h4>
+										<p class="text-gray-700">ブラインドショットとは、バリケードからエアガンだけを出して射撃する行為です。</p>
+										<ol class="list-decimal pl-6 space-y-2 text-gray-700 mt-4">
+											<li>バリケードからエアガンだけを出して射撃する行為</li>
+											<li>バリケードを超える様に撃ち下ろす行為</li>
+											<li>視認している方向以外に射撃する行為</li>
+										</ol>
+										<p class="text-gray-700 mt-4">射撃の際はしっかり構え、狙って撃つ様にしてください。</p>
+									</div>
+
+									<!-- フィールド内での規定 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">フィールド内での規定</h4>
+										<ul class="list-disc pl-6 space-y-3 text-gray-700">
+											<li>当フィールドは傾斜もあるフィールドです。転倒やお客様同士の衝突などによる怪我を防ぐ為、ダッシュ、全力疾走は禁止ですが、すぐに止まれる速度で走るのは可能とします。</li>
+											<li>スライディングを行なって頂くのは構いませんが、バリケードにぶつからないようにお願いします。</li>
+											<li>身体をバリケードなどにこすりつけると怪我をしたり衣服を痛めたりする場合がございます。ご注意ください。</li>
+											<li>フィールド内に設置してあるドラム缶や木箱など障害物の移動は厳禁です。また、障害物の上に乗ることも禁止します。障害物に強く体当たり等すると倒れてくる可能性があり大変危険です。体当たり等はしないでください。</li>
+											<li>バリケードにもたれかかる、殴る・蹴るなどの施設の破壊に繋がる行為は禁止とします。</li>
+											<li>貴重品の管理はご自身にて厳重にお願いします。</li>
+											<li>飲酒はご遠慮ください（酒気を帯びた方もフィールド内には入れません）</li>
+											<li>施設の破損につきましては修理代金を請求させて頂きます。</li>
+											<li>当フィールド内での事故や怪我、盗難に関しまして当方は一切の責任等を負いかねます。予めご了承ください。</li>
+										</ul>
+									</div>
+
+									<!-- セーフティエリアの規定 -->
+									<div class="mb-10">
+										<h4 class="text-xl font-bold text-gray-800 mb-4">セーフティエリアの規定</h4>
+										<ul class="list-disc pl-6 space-y-3 text-gray-700">
+											<li>セーフティエリア内は禁煙、火気厳禁です。おタバコは喫煙所でお願いします。</li>
+											<li>セーフティエリア内での発砲は空撃ちを含め一切禁止です。</li>
+											<li>弾倉（マガジン）は必ず外してください。弾・ガス・バッテリーが入っていない状態でも弾倉（マガジン）は銃に刺さないで下さい。</li>
+											<li>自分も含めて銃口を人に向けないでください。</li>
+											<li>トリガーに指をかけた状態で、銃を持たないように心掛けてください。</li>
+											<li>フィールドやシューティングレンジから戻る際は必ずマガジンを外し、残弾処理（弾抜き）を行った後に安全位置（安全装置ON）をして下さい。</li>
+											<li>セーフティエリア内では、エアガンのセーフティレバーをいついかなる状況でも安全位置（安全装置ON）にしてください。</li>
+										</ul>
+									</div>
+
+									<!-- 定例会タイムスケジュールセクション -->
+									<div class="mt-16">
+										<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">定例会タイムスケジュール</h3>
+
+										<!-- 左右配置ボックス -->
+										<div class="flex flex-col md:flex-row gap-8 mb-8">
+											<!-- 左側：テキスト -->
+											<div class="flex-1">
+												<div class="bg-gray-50 p-8 rounded-lg">
+													<div class="space-y-6 text-gray-800">
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">9:00</div>
+															<div class="flex-1 pl-4">ゲートオープン</div>
+														</div>
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">9:05</div>
+															<div class="flex-1 pl-4">受付・弾速チェック</div>
+														</div>
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">10:00</div>
+															<div class="flex-1 pl-4">全体ブリーフィング</div>
+														</div>
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">10:15</div>
+															<div class="flex-1 pl-4">フィールドツアー</div>
+														</div>
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">10:30</div>
+															<div class="flex-1 pl-4">午前ゲームスタート</div>
+														</div>
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">12:00</div>
+															<div class="flex-1 pl-4">お昼休憩</div>
+														</div>
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">13:00</div>
+															<div class="flex-1 pl-4">午後ゲームスタート</div>
+														</div>
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">16:00</div>
+															<div class="flex-1 pl-4">ゲーム終了</div>
+														</div>
+														<div class="flex items-center">
+															<div class="w-24 font-bold text-right">17:00</div>
+															<div class="flex-1 pl-4">ゲートクローズ</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<!-- 右側：画像縦配置 -->
+											<div class="flex-1">
+												<div class="space-y-6">
+													<img src="assets/img/top_img_10.png" alt="タイムスケジュール画像1" class="w-full h-auto object-contain">
+													<img src="assets/img/top_img_13.png" alt="タイムスケジュール画像2" class="w-full h-auto object-contain">
+												</div>
+											</div>
+										</div>
+
+										<!-- 注意書き -->
+										<p class="text-gray-700">※ご来場いただきましたらまず、受付と弾速チェックの実施にご協力お願いします。</p>
+									</div>
+
+									<!-- レンタル・販売・設備セクション -->
+									<div class="mt-16">
+										<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">レンタル・販売・設備</h3>
+
+										<!-- レンタル -->
+										<div class="mb-10">
+											<h4 class="text-xl font-bold text-gray-800 mb-4">レンタル</h4>
+
+											<!-- テーブル -->
+											<div class="overflow-x-auto shadow-lg mb-6">
+												<div class="flex justify-center">
+													<table class="w-full md:w-[930px]">
+														<colgroup>
+															<col class="w-2/3"> <!-- 品名列 67% -->
+															<col class="w-1/3"> <!-- 料金列 33% -->
+														</colgroup>
+														<thead>
+															<tr>
+																<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">品名</th>
+																<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">料金</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">銃（電動ガン）</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">2,000円</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">迷彩服</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">1,500円　<span class="text-xs">※数に限りがあります。</span></td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">ゴーグル</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">500円</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">バッテリー貸し出し</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">無料</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">バッテリー充電</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">無料</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<!-- 説明文 -->
+											<p class="text-gray-700">様々なレンタルガンをご用意しておりますので、アサルトライフルを借りたけどスナイパーライフルに替えたい等はお気軽にお申し付け下さい。またその場合の追加料金は掛かりません。</p>
+										</div>
+
+										<!-- アイテム販売 -->
+										<div class="mb-10">
+											<h4 class="text-xl font-bold text-gray-800 mb-4">アイテム販売</h4>
+
+											<!-- テーブル -->
+											<div class="overflow-x-auto shadow-lg mb-6">
+												<div class="flex justify-center">
+													<table class="w-full md:w-[930px]">
+														<colgroup>
+															<col class="w-full"> <!-- 品名列 100% -->
+														</colgroup>
+														<thead>
+															<tr>
+																<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">品名</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">バイオBB弾（G&G製0.2g、0.25g）</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">フロンガス　（HFC134a）</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">Co2（12g）</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">電池　各種</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">軍手、、、etc</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<!-- 説明文 -->
+											<p class="text-gray-700">様々な消耗品など販売しております。</p>
+										</div>
+
+										<!-- 設備 -->
+										<div class="mb-10">
+											<h4 class="text-xl font-bold text-gray-800 mb-4">設備</h4>
+
+											<!-- テーブル -->
+											<div class="overflow-x-auto shadow-lg mb-6">
+												<div class="flex justify-center">
+													<table class="w-full md:w-[930px]">
+														<colgroup>
+															<col class="w-2/3"> <!-- 設備名列 67% -->
+															<col class="w-1/3"> <!-- 数量列 33% -->
+														</colgroup>
+														<thead>
+															<tr>
+																<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">設備名</th>
+																<th class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">数量</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">電子レンジ</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">1台</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">電子ポット</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">1台</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">飲料自動販売機</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">1台</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">簡易トイレ</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">男子 3台　女子 1台</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">簡易更衣室</td>
+																<td class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left"></td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- アクセスセクション -->
+									<div class="mt-16">
+										<h3 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">アクセス</h3>
+
+										<!-- 住所・営業時間情報 -->
+										<div class="mb-8">
+											<p class="text-gray-700 mb-4">〒586-0052 大阪府河内長野市河合寺４２６</p>
+											<p class="text-gray-700 mb-2">営業時間：デイゲーム　AM10:00～PM16:00（フィールド開閉時間　AM９:00～PM17:00）</p>
+											<p class="text-gray-700 mb-2">駐車場：50台以上可能</p>
+											<p class="text-gray-700">定休日：不定休</p>
+										</div>
+
+										<!-- Googleマップiframe -->
+										<div class="flex justify-center">
+											<div class="w-full">
+												<iframe
+													src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3290.4323198921993!2d135.5873269!3d34.441172099999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000d5cd5ed75547%3A0xad32042edb6a1caa!2z44K144OQ44Kk44OQ44Or44Ky44O844Og44OV44Kj44O844Or44OJIHdlc3QgZmllbGQ!5e0!3m2!1sja!2sjp!4v1707145027538!5m2!1sja!2sjp"
+													width="100%"
+													height="450"
+													style="border:0;"
+													allowfullscreen=""
+													loading="lazy"
+													referrerpolicy="no-referrer-when-downgrade"
+													class="w-full max-w-[1100px] mx-auto">
+												</iframe>
+											</div>
+										</div>
+									</div>
+
+									<!-- WEST FIELD PVボックス -->
+									<div class="mt-16">
+										<div class="flex justify-center">
+											<div class="w-full md:w-[990px] h-[250px] relative overflow-hidden group">
+												<!-- 背景イメージ -->
+												<div
+													class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+													style="background-image: url('assets/img/top_img_11-1400x557.png');"
+												></div>
+
+												<!-- オーバーレイ（背景を少し暗く） -->
+												<div class="absolute inset-0 bg-black/30"></div>
+
+												<!-- 中央テキストとボタン -->
+												<div class="relative h-full flex flex-col items-center justify-center text-white text-center px-4">
+													<h3 class="text-3xl font-bold mb-2">WEST FIELD PV</h3>
+													<p class="text-lg mb-6">WEST FIELDの魅力を動画にしました。</p>
+
+													<!-- 角丸ボタン -->
+													<a href="https://westfield2023.net/westfield_video/" class="inline-block" target="_blank">
+														<button class="bg-[#FF0000] text-white font-bold py-3 px-8 rounded-lg hover:bg-[#3da5a1] transition-colors duration-300 flex items-center justify-center gap-3">
+															<i class="fab fa-youtube text-xl"></i>
+															<span class="text-lg">動画を見る</span>
+														</button>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<!-- X（Twitter）リンク -->
+									<div class="mt-16">
+										<div class="flex justify-center">
+											<div class="w-full md:w-[990px] text-center">
+												<a href="https://twitter.com/310westfield?ref_src=twsrc%5Etfw" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 text-[#1DA1F2] hover:text-[#0d8bd9] transition-colors duration-300">
+													<i class="fab fa-twitter text-3xl"></i>
+													<span class="text-2xl font-bold">Tweets by 310westfield</span>
+													<small>ツイートを見る</small>
+												</a>
+											</div>
+										</div>
+									</div>
+
+									<!-- アルバイト募集ボックス -->
+									<div class="mt-16">
+										<div class="flex justify-center">
+											<div class="w-full md:w-[990px] h-[272px] relative overflow-hidden">
+												<!-- 背景イメージ -->
+												<div
+													class="absolute inset-0 bg-center"
+													style="background-image: url('assets/img/top_img_01-1.png');"
+												></div>
+
+												<!-- オーバーレイ（背景を少し暗く） -->
+												<div class="absolute inset-0 bg-black/70"></div>
+
+												<!-- 左右配置コンテンツ -->
+												<div class="relative h-full flex flex-col md:flex-row">
+													<!-- 左側：アルバイト募集情報 -->
+													<div class="flex-1 p-8 flex flex-col justify-center text-white">
+														<h3 class="text-2xl font-bold mb-4">アルバイト募集</h3>
+														<div class="space-y-3">
+															<p class="font-medium">年齢18歳〜45歳まで</p>
+															<p class="font-medium">時給1,300円〜1,500円</p>
+															<p class="text-sm">定例会開催時、貸切開催時の受付業務やゲームマスターと言ったフィールド運営が主な勤務内容となります。</p>
+															<p class="text-sm mt-4">平日または土日祝の開催時の出勤希望日は都度相談に応じます。</p>
+														</div>
+													</div>
+
+													<!-- 右側：連絡先情報 -->
+													<div class="flex-1 p-8 flex flex-col justify-center text-white">
+														<h3 class="text-2xl font-bold mb-4">連絡先</h3>
+														<div class="space-y-4">
+															<div>
+																<p class="font-medium">【担当者】オーナー 西野</p>
+																<p class="font-medium">【連絡先】090-9715-1979</p>
+															</div>
+															<p class="text-sm">「アルバイトの件で〜」と、お気軽にご連絡ください。</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<div id="footer"></div>
+
+	<!-- JavaScript -->
+
+	<script>
+	fetch('header.html')
+	.then(res => res.text())
+	.then(data => {
+		document.getElementById('header').innerHTML = data;
+	});
+
+	fetch('footer.html')
+	.then(res => res.text())
+	.then(data => {
+		document.getElementById('footer').innerHTML = data;
+	});
+	</script>
+	<script src="assets/js/main.js"></script>
 </body>
 </html>
