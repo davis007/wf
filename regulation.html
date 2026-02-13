@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +8,48 @@
 	<!-- Tailwind CSS CDN with custom config -->
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script>
-	  tailwind.config = {
-		theme: {
-		  extend: {
-			colors: {
-			  'primary': '#56BAB6',
-			  'secondary': '#2C3E50',
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						'primary': '#56BAB6',
+						'secondary': '#2C3E50',
+					},
+					fontFamily: {
+						'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
+					},
+					screens: {
+						'xs': '480px',
+						'lg': '1080px',
+					},
+					maxWidth: {
+						'large-12': '1080px',
+					},
+					animation: {
+						'slide-in': 'slideIn 0.3s ease-in-out',
+						'slide-out': 'slideOut 0.3s ease-in-out',
+					},
+					keyframes: {
+						slideIn: {
+							'0%': {
+								transform: 'translateX(-100%)'
+							},
+							'100%': {
+								transform: 'translateX(0)'
+							},
+						},
+						slideOut: {
+							'0%': {
+								transform: 'translateX(0)'
+							},
+							'100%': {
+								transform: 'translateX(-100%)'
+							},
+						},
+					},
+				},
 			},
-			fontFamily: {
-			  'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
-			},
-			screens: {
-			  'xs': '480px',
-			  'lg': '1080px',
-			},
-			maxWidth: {
-			  'large-12': '1080px',
-			},
-			animation: {
-			  'slide-in': 'slideIn 0.3s ease-in-out',
-			  'slide-out': 'slideOut 0.3s ease-in-out',
-			},
-			keyframes: {
-			  slideIn: {
-				'0%': { transform: 'translateX(-100%)' },
-				'100%': { transform: 'translateX(0)' },
-			  },
-			  slideOut: {
-				'0%': { transform: 'translateX(0)' },
-				'100%': { transform: 'translateX(-100%)' },
-			  },
-			},
-		  },
-		},
-	  }
+		}
 	</script>
 	<!-- Font Awesome for icons -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -49,6 +58,7 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="assets/img/logo.jpg">
 </head>
+
 <body class="font-sans">
 	<!-- Header -->
 	<div id="header"></div>
@@ -57,9 +67,12 @@
 	<main class="pt-0 min-h-screen">
 		<!-- メインカラム（1080px内側が白背景、外側は背景画像） -->
 		<div class="max-w-large-12 mx-auto w-full px-4 py-12 bg-white mt-[65px]">
+			<!-- コンテンツを中央揃えするためのコンテナ -->
+			<div class="max-w-[990px] mx-auto">
 			<!-- 1. 中央にロゴマーク 173x173px -->
 			<div class="flex justify-center mb-6">
-				<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
+				<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ"
+					class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
 			</div>
 
 			<!-- 2. ロゴの下にテキスト -->
@@ -68,10 +81,258 @@
 				<p class="md:text-xl text-lg text-gray-600">WEST FIELD 利用規約・ルール</p>
 			</div>
 
-			<!-- ここにレギュレーションの内容を追加 -->
-			<div class="text-center text-gray-500 py-16">
-				<p class="text-lg">レギュレーションの内容はこちらに記述されます。</p>
-				<p class="text-sm mt-4">（この部分は後で詳細なレギュレーション内容で置き換えてください）</p>
+			<!-- 画像 -->
+			<div class="mb-8 flex justify-center">
+				<img src="assets/img/top_img_04.png" alt="レギュレーション"
+					class="w-full md:w-[990px] h-auto shadow-lg shadow-gray-400/30">
+			</div>
+
+			<!-- 参加資格について -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">参加資格について</h4>
+				<p class="text-gray-700">レギュレーション及びルールを理解し遵守できる方。（日本語による意思疎通の図れないお客様のご利用は頂けません）</p>
+			</div>
+
+			<!-- 未成年者の参加資格について -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">未成年者の参加資格について</h4>
+				<ul class="list-disc pl-6 space-y-3 text-gray-700">
+					<li>10歳～17歳の未成年の方が参加する場合は、保護者の方が親権者同意書へサインをして頂く必要があります。</li>
+					<li>小学生の方のみでのゲームへの参加はできません。保護者の方のフィールド内での同伴もしくは見学エリアでの監視が必要となります。</li>
+					<li>中学生以上の未成年の方は、保護者による当フィールドまでの送迎・受付を以てお一人でのゲームの参加を認めるものとします。</li>
+					<li>18歳未満の方は、ゲームに使用する銃は47m/s以下の銃（10禁エアガンまたは18禁エアガンのデチューン）に限定いたします。</li>
+				</ul>
+			</div>
+
+			<!-- 使用可能弾 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">使用可能弾</h4>
+				<p class="text-gray-700">0.12g～0.25gの6mm、生分解性のバイオ弾、及び蓄光バイオ弾のみ。</p>
+				<p class="text-gray-700 text-sm mt-2">※生分解性以外のプラスチック弾及びセミバイオ弾の使用、持込みは禁止です。</p>
+			</div>
+
+			<!-- 初速 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">初速</h4>
+
+				<!-- 左右配置ボックス -->
+				<div class="flex flex-col md:flex-row gap-6 mb-6">
+					<!-- 左側：18歳以上用エアガン -->
+					<div class="flex-1 bg-gray-50 p-6 rounded-lg">
+						<h5 class="text-lg font-bold text-gray-800 mb-4">18歳以上用エアガン</h5>
+						<ul class="space-y-2 text-gray-700">
+							<li>・0.12g弾：122m/sec未満</li>
+							<li>・0.2g弾 ：95m/sec未満</li>
+							<li>・0.25g弾：85m/sec未満</li>
+						</ul>
+					</div>
+
+					<!-- 右側：10歳以上用エアガン -->
+					<div class="flex-1 bg-gray-50 p-6 rounded-lg">
+						<h5 class="text-lg font-bold text-gray-800 mb-4">10歳以上用エアガン</h5>
+						<ul class="space-y-2 text-gray-700">
+							<li>・0.12g弾：47m/sec未満</li>
+							<li>・0.2g弾 ：36m/sec未満</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- リスト -->
+				<ul class="list-disc pl-6 space-y-3 text-gray-700">
+					<li>ゲームに使用されるエアガンは弾速チェック致します。</li>
+					<li>弾速の上限は、弾の重さごとに異なります。初速計測の際にご使用になられる弾の重量をお伺い致します。</li>
+					<li>当フィールドは標高が少し高い為、ご自宅や他フィールド様で計測した初速から変動する場合が御座います。余裕をもった初速でのセッティングをお願い致します。</li>
+					<li>減速ハイダーの使用は不可とさせて頂いております。</li>
+					<li>弾速を計測して上記の数値を超えた銃については、お帰りの際まで受付にてお預かりする場合があります。</li>
+					<li>弾速チェックを意図的にごまかし、法定初速を超えたエアガンを使用していることが発覚した場合には即時警察への通報、以後の当施設への出入り禁止処分とします。</li>
+					<li>外部ソースは「サンプロジェクト」製のみ使用を許可しております。計測の際はバルブを全開放にした状態で計測をさせていただきます。</li>
+					<li>抜き打ちチェックをさせて頂く場合も御座います。</li>
+				</ul>
+			</div>
+
+			<!-- 使用可能発射サイクル、発射弾数 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">使用可能発射サイクル、発射弾数</h4>
+				<ul class="list-disc pl-6 space-y-3 text-gray-700">
+					<li>全てのエリアでセミオートのみ可能とします。
+						<ul class="list-[circle] pl-6 mt-2 space-y-2">
+							<li>フルオート、バースト、バイナリーショット、5タップを超える発射は全て禁止です。</li>
+						</ul>
+					</li>
+					<li>電動ショットガン、フルオートのみのエアガンは使用できません。</li>
+					<li>ショットガンは1回の発射弾数が6発以上のものは使用できません。
+						<ul class="list-[circle] pl-6 mt-2 space-y-2">
+							<li>（セレクターで5発以下に切り替えられるものは使用可能です）</li>
+						</ul>
+					</li>
+					<li>2024年4月からガスショットガン（セミオートのみ）使用が可能になりました。</li>
+				</ul>
+			</div>
+
+			<!-- 利用可能パワーソース -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">利用可能パワーソース</h4>
+
+				<!-- フロンガス -->
+				<div class="mb-6">
+					<p class="font-bold text-gray-800 mb-3">フロンガス</p>
+					<ul class="list-disc pl-6 space-y-2 text-gray-700">
+						<li>HFC134a</li>
+						<li>HFC152a</li>
+						<li>HFO1234ze+LPG</li>
+					</ul>
+				</div>
+
+				<!-- CO2 -->
+				<div>
+					<p class="font-bold text-gray-800 mb-3">CO2</p>
+					<ul class="list-disc pl-6 space-y-2 text-gray-700">
+						<li>12gサイズボンベ
+							<ul class="list-[circle] pl-6 mt-1 space-y-1 text-sm">
+								<li>※「全日本トイガン安全協会」（STGA）や「日本エアースポーツガン振興協同組合」（JASG）にて安全認定されているCO2小型カートリッジボンベのみ</li>
+							</ul>
+						</li>
+						<li>74gサイズボンベ
+							<ul class="list-[circle] pl-6 mt-1 space-y-1 text-sm">
+								<li>※サンプロジェクト グリーンガスに限る</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- 使用可能アイテム -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">使用可能アイテム</h4>
+				<ul class="list-disc pl-6 space-y-3 text-gray-700">
+					<li>トルネード/サイクロン
+						<ul class="list-[circle] pl-6 mt-2 space-y-2 text-sm">
+							<li>※腰より下の位置よりアンダースローで約２m以内に投げてください。その際、人に当たらない様に投げてください。建物の窓から投げ入れる等は禁止とさせて頂きます。</li>
+						</ul>
+					</li>
+					<li>モスカート</li>
+					<li>BBシャワー</li>
+					<li>クレイモア</li>
+				</ul>
+				<p class="text-gray-700 text-sm mt-4">※ゲームによっては使用禁止になることがあります。</p>
+			</div>
+
+			<!-- ウエポン、アクセサリー類の持ち込み・使用制限 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">ウエポン、アクセサリー類の持ち込み・使用制限</h4>
+				<ul class="list-disc pl-6 space-y-3 text-gray-700">
+					<li>スタンガン、金属のナイフ類、金属のバヨネット（銃剣）、警棒、催涙スプレー、その他護身用アイテム等は持ち込みを禁止とします。</li>
+					<li>1000ルーメン以上のライトやオートストロボ機能は使用できません。前述のライトでも装備のみは可能とします。1000ルーメン以下のライト、また手動にてストロボ（ON→OFFを繰り返す行為）を行う場合は利用可能とします。
+					</li>
+					<li>レーザーサイトは禁止します。装着するだけであれば問題ありません、また貸切等のイベントの際は予約時の代表者の責任の元、任意による使用は可。</li>
+					<li>40mike・大きな音がなるスタングレネードは禁止とします。</li>
+				</ul>
+			</div>
+
+			<!-- 安全規制 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">安全規制</h4>
+
+				<!-- アイウェア規定 -->
+				<div class="mb-6">
+					<p class="font-bold text-gray-800 mb-3">アイウェア規定</p>
+					<div class="text-gray-700 space-y-4">
+						<p>フィールド内ではメガネやサングラスのみでは「防弾基準」をクリアしておらず、BB弾が当たった時に割れてしまう可能性があるため単品での使用は不可となります。「防弾基準をクリアしている」ゴーグルやシューティンググラスの着用が必須となります。シューティンググラスの利用の場合はガスケットや落下防止のバンドの着用を推奨しております。またメッシュタイプのゴーグルにつきましては割れたBB弾の破片が目に入る可能性があるため禁止とさせて頂きます。
+						</p>
+						<p>ゲーム中にゴーグルが曇った場合につきましては、足元も見えにくくなり大変危険です。アイウェアは決して外さず、速やかにヒットコールを行いフィールドの外に出るようご協力をお願い致します。その際、スタッフの協力が必要な場合は遠慮なくお声掛け下さい。
+						</p>
+					</div>
+				</div>
+
+				<!-- フェイスマスク規定 -->
+				<div>
+					<p class="font-bold text-gray-800 mb-3">フェイスマスク規定</p>
+					<p class="text-gray-700">フィールド内では、シリコンマスクやスチールメッシュマスク等の顔を守れるものを着用義務となります。</p>
+				</div>
+			</div>
+
+			<!-- ヒット判定 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">ヒット判定</h4>
+				<ul class="list-disc pl-6 space-y-3 text-gray-700">
+					<li>当フィールドのヒット判定は、BB弾が「体」「銃」「装備品」のいずれに当たったの場合もヒットです。物や人に当たって跳ね返ってきた「跳弾」に当たった場合に関しては無効としておりますが、跳弾かどうか疑わしい場合はヒットコールのご協力をお願い致します。
+					</li>
+					<li>味方から撃たれる行為、通称フレンドリーファイアは、撃った人・撃たれた人「双方ヒット」となります。他人のゲームの妨げをしてしまっているので、「すいませんでした」とお声掛け頂けますようにお願い致します。
+					</li>
+				</ul>
+			</div>
+
+			<!-- ヒットコールについて -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">ヒットコールについて</h4>
+				<div class="text-gray-700 space-y-4">
+					<p>ヒットになった場合大きな声で「ヒット」と宣告して、手をあげるなど大きな身振りでヒットである事をアピールして下さい。またヒットコール後は速やかにリスポーン（復活）地点への移動やフィールド外へ退場してください。移動中も手を上げる（振る）ことや「ヒットです」「ヒット通ります」とアピールを続けながら移動、退場をして下さい。
+					</p>
+					<p>ヒットコール後は「あそこから撃たれた」など敵の位置が分かるような会話は厳禁です。復活があるゲームではリスポーン（復活）後からなら情報共有を行うのは許可しております。</p>
+					<p>退場者の後ろに隠れるなどしての移動、盾にして戦うのは禁止です。</p>
+					<p>「当たったかな？」と思ったらヒットコールをするように心掛けて頂くと幸いです。またスタッフから「当たりましたよ」と指摘を受けた場合は、ヒットコールのご協力をお願いします。</p>
+					<p>厚着の服を着用、装備をしている場合は被弾に気がつき難くなります。装備を外して頂くなど、ご協力を要請する場合も御座いますがご了承ください。</p>
+					<p>敵・味方にかわらずヒット判定の指摘やヒット判定に関する会話は、一切禁止とします。そのような指摘等はトラブルの原因になりますので絶対にやめてください。</p>
+				</div>
+			</div>
+
+			<!-- ゾンビ行為 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">ゾンビ行為</h4>
+				<p class="text-gray-700">
+					BB弾が被弾しているのにも関わらずゲームを継続する通称「ゾンビ行為」は禁止です。ゾンビ行為を見つけた場合には直接本人には言わずフィールドスタッフまでご報告ください。</p>
+			</div>
+
+			<!-- 隙間撃ちの禁止 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">隙間撃ちの禁止</h4>
+				<p class="text-gray-700">
+					バリケードの小さな隙間から銃口だけ出して射撃する行為です。隙間の定義は顔が入るか入らないかで判断して下さい。隙間であっても、隙間から銃口の先端までの距離が１m以上離れていれば射撃可能です。
+				</p>
+			</div>
+
+			<!-- ブラインドショットの禁止 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">ブラインドショットの禁止</h4>
+				<p class="text-gray-700">ブラインドショットとは、バリケードからエアガンだけを出して射撃する行為です。</p>
+				<ol class="list-decimal pl-6 space-y-2 text-gray-700 mt-4">
+					<li>バリケードからエアガンだけを出して射撃する行為</li>
+					<li>バリケードを超える様に撃ち下ろす行為</li>
+					<li>視認している方向以外に射撃する行為</li>
+				</ol>
+				<p class="text-gray-700 mt-4">射撃の際はしっかり構え、狙って撃つ様にしてください。</p>
+			</div>
+
+			<!-- フィールド内での規定 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">フィールド内での規定</h4>
+				<ul class="list-disc pl-6 space-y-3 text-gray-700">
+					<li>当フィールドは傾斜もあるフィールドです。転倒やお客様同士の衝突などによる怪我を防ぐ為、ダッシュ、全力疾走は禁止ですが、すぐに止まれる速度で走るのは可能とします。</li>
+					<li>スライディングを行なって頂くのは構いませんが、バリケードにぶつからないようにお願いします。</li>
+					<li>身体をバリケードなどにこすりつけると怪我をしたり衣服を痛めたりする場合がございます。ご注意ください。</li>
+					<li>フィールド内に設置してあるドラム缶や木箱など障害物の移動は厳禁です。また、障害物の上に乗ることも禁止します。障害物に強く体当たり等すると倒れてくる可能性があり大変危険です。体当たり等はしないでください。
+					</li>
+					<li>バリケードにもたれかかる、殴る・蹴るなどの施設の破壊に繋がる行為は禁止とします。</li>
+					<li>貴重品の管理はご自身にて厳重にお願いします。</li>
+					<li>飲酒はご遠慮ください（酒気を帯びた方もフィールド内には入れません）</li>
+					<li>施設の破損につきましては修理代金を請求させて頂きます。</li>
+					<li>当フィールド内での事故や怪我、盗難に関しまして当方は一切の責任等を負いかねます。予めご了承ください。</li>
+				</ul>
+			</div>
+
+			<!-- セーフティエリアの規定 -->
+			<div class="mb-10">
+				<h4 class="text-xl font-bold text-gray-800 mb-4">セーフティエリアの規定</h4>
+				<ul class="list-disc pl-6 space-y-3 text-gray-700">
+					<li>セーフティエリア内は禁煙、火気厳禁です。おタバコは喫煙所でお願いします。</li>
+					<li>セーフティエリア内での発砲は空撃ちを含め一切禁止です。</li>
+					<li>弾倉（マガジン）は必ず外してください。弾・ガス・バッテリーが入っていない状態でも弾倉（マガジン）は銃に刺さないで下さい。</li>
+					<li>自分も含めて銃口を人に向けないでください。</li>
+					<li>トリガーに指をかけた状態で、銃を持たないように心掛けてください。</li>
+					<li>フィールドやシューティングレンジから戻る際は必ずマガジンを外し、残弾処理（弾抜き）を行った後に安全位置（安全装置ON）をして下さい。</li>
+					<li>セーフティエリア内では、エアガンのセーフティレバーをいついかなる状況でも安全位置（安全装置ON）にしてください。</li>
+				</ul>
+			</div>
 			</div>
 		</div>
 	</main>
@@ -81,18 +342,19 @@
 
 	<!-- JavaScript -->
 	<script>
-	fetch('header.html')
-	.then(res => res.text())
-	.then(data => {
-		document.getElementById('header').innerHTML = data;
-	});
+		fetch('header.html')
+			.then(res => res.text())
+			.then(data => {
+				document.getElementById('header').innerHTML = data;
+			});
 
-	fetch('footer.html')
-	.then(res => res.text())
-	.then(data => {
-		document.getElementById('footer').innerHTML = data;
-	});
+		fetch('footer.html')
+			.then(res => res.text())
+			.then(data => {
+				document.getElementById('footer').innerHTML = data;
+			});
 	</script>
 	<script src="assets/js/main.js"></script>
 </body>
+
 </html>

@@ -57,6 +57,8 @@
 	<main class="pt-0 min-h-screen">
 		<!-- メインカラム（1080px内側が白背景、外側は背景画像） -->
 		<div class="max-w-large-12 mx-auto w-full px-4 py-12 bg-white mt-[65px]">
+			<!-- コンテンツを中央揃えするためのコンテナ -->
+			<div class="max-w-[990px] mx-auto">
 			<!-- 1. 中央にロゴマーク 173x173px -->
 			<div class="flex justify-center mb-6">
 				<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
@@ -70,8 +72,67 @@
 
 			<!-- ここに定例会タイムスケジュールの内容を追加 -->
 			<div class="text-center text-gray-500 py-16">
-				<p class="text-lg">定例会タイムスケジュールの内容はこちらに記述されます。</p>
-				<p class="text-sm mt-4">（この部分は後で詳細なタイムスケジュールで置き換えてください）</p>
+			<!-- 定例会タイムスケジュールセクション -->
+					<!-- 左右配置ボックス -->
+					<div class="flex flex-col md:flex-row gap-8 mb-8">
+						<!-- 左側：テキスト -->
+						<div class="flex-1">
+							<div class="bg-gray-50 p-8 rounded-lg">
+								<div class="space-y-6 text-gray-800">
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">9:00</div>
+										<div class="flex-1 pl-4">ゲートオープン</div>
+									</div>
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">9:05</div>
+										<div class="flex-1 pl-4">受付・弾速チェック</div>
+									</div>
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">10:00</div>
+										<div class="flex-1 pl-4">全体ブリーフィング</div>
+									</div>
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">10:15</div>
+										<div class="flex-1 pl-4">フィールドツアー</div>
+									</div>
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">10:30</div>
+										<div class="flex-1 pl-4">午前ゲームスタート</div>
+									</div>
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">12:00</div>
+										<div class="flex-1 pl-4">お昼休憩</div>
+									</div>
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">13:00</div>
+										<div class="flex-1 pl-4">午後ゲームスタート</div>
+									</div>
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">16:00</div>
+										<div class="flex-1 pl-4">ゲーム終了</div>
+									</div>
+									<div class="flex items-center">
+										<div class="w-24 font-bold text-right">17:00</div>
+										<div class="flex-1 pl-4">ゲートクローズ</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 右側：画像縦配置 -->
+						<div class="flex-1">
+							<div class="space-y-6">
+								<img src="assets/img/top_img_10.png" alt="タイムスケジュール画像1"
+									class="w-full h-auto object-contain">
+								<img src="assets/img/top_img_13.png" alt="タイムスケジュール画像2"
+									class="w-full h-auto object-contain">
+							</div>
+						</div>
+					</div>
+
+					<!-- 注意書き -->
+					<p class="text-gray-700">※ご来場いただきましたらまず、受付と弾速チェックの実施にご協力お願いします。</p>
+				</div>
 			</div>
 		</div>
 	</main>

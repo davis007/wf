@@ -84,6 +84,8 @@ header img {
 /* 1080px幅のコンテナ用スタイル */
 .max-w-large-12 {
     max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* モバイルでの1080pxコンテナ調整 */
@@ -99,8 +101,7 @@ header img {
 /* 1080px以上の画面での中央揃え */
 @media (min-width: 1081px) {
     .max-w-large-12 {
-        margin-left: auto;
-        margin-right: auto;
+        /* margin-left: auto; margin-right: auto; は既に上で設定済み */
     }
 }
 

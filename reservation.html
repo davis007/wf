@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +8,48 @@
 	<!-- Tailwind CSS CDN with custom config -->
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script>
-	  tailwind.config = {
-		theme: {
-		  extend: {
-			colors: {
-			  'primary': '#56BAB6',
-			  'secondary': '#2C3E50',
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						'primary': '#56BAB6',
+						'secondary': '#2C3E50',
+					},
+					fontFamily: {
+						'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
+					},
+					screens: {
+						'xs': '480px',
+						'lg': '1080px',
+					},
+					maxWidth: {
+						'large-12': '1080px',
+					},
+					animation: {
+						'slide-in': 'slideIn 0.3s ease-in-out',
+						'slide-out': 'slideOut 0.3s ease-in-out',
+					},
+					keyframes: {
+						slideIn: {
+							'0%': {
+								transform: 'translateX(-100%)'
+							},
+							'100%': {
+								transform: 'translateX(0)'
+							},
+						},
+						slideOut: {
+							'0%': {
+								transform: 'translateX(0)'
+							},
+							'100%': {
+								transform: 'translateX(-100%)'
+							},
+						},
+					},
+				},
 			},
-			fontFamily: {
-			  'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
-			},
-			screens: {
-			  'xs': '480px',
-			  'lg': '1080px',
-			},
-			maxWidth: {
-			  'large-12': '1080px',
-			},
-			animation: {
-			  'slide-in': 'slideIn 0.3s ease-in-out',
-			  'slide-out': 'slideOut 0.3s ease-in-out',
-			},
-			keyframes: {
-			  slideIn: {
-				'0%': { transform: 'translateX(-100%)' },
-				'100%': { transform: 'translateX(0)' },
-			  },
-			  slideOut: {
-				'0%': { transform: 'translateX(0)' },
-				'100%': { transform: 'translateX(-100%)' },
-			  },
-			},
-		  },
-		},
-	  }
+		}
 	</script>
 	<!-- Font Awesome for icons -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -49,6 +58,7 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="assets/img/logo.jpg">
 </head>
+
 <body class="font-sans">
 	<!-- Header -->
 	<div id="header"></div>
@@ -59,21 +69,207 @@
 		<div class="max-w-large-12 mx-auto w-full px-4 py-12 bg-white mt-[65px]">
 			<!-- 1. 中央にロゴマーク 173x173px -->
 			<div class="flex justify-center mb-6">
-				<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
+				<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ"
+					class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
 			</div>
 
 			<!-- 2. ロゴの下にテキスト -->
-			<div class="text-center mb-12">
+			<div class="text-center">
 				<h1 class="md:text-4xl text-3xl font-bold text-gray-800 mb-2">定例会・貸切ご予約</h1>
 				<p class="md:text-xl text-lg text-gray-600">WEST FIELD 予約情報</p>
 			</div>
 
 			<!-- ここに定例会・貸切ご予約の内容を追加 -->
-			<div class="text-center text-gray-500 py-16">
-				<p class="text-lg">定例会・貸切ご予約の内容はこちらに記述されます。</p>
-				<p class="text-sm mt-4">（この部分は後で詳細な予約情報で置き換えてください）</p>
-			</div>
-		</div>
+			<div class="text-center text-gray-500">
+				<div class="mt-16">
+					<div class="flex justify-center">
+						<div class="w-full md:w-[990px]">
+							<!-- Googleカレンダーiframe（ユーザーが挿入済み） -->
+							<div class="flex justify-center">
+								<!-- ここにGoogleカレンダーのiframeが挿入されます -->
+								<div class="text-center text-gray-500 p-8 border border-gray-300 rounded w-full">
+									<iframe loading="lazy"
+										src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=Asia%2FTokyo&amp;bgcolor=%23ffffff&amp;src=MzEwLndlc3QuZmllbGRAZ21haWwuY29t&amp;src=MWQxNmI0NWMzN2VmYzcwYjk3ZWUzZjZkYjY4YzBiNDk2NGY1Y2E2Y2Q0MzZmMjUxMzc1MzMyMTAzZWU4OGJkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGJjMWVjYTE4NzUzYzNlNjEwOWNkNWRmZmExNmQzZjI0ZDMzMWUyNWYxOWJiNWFkOGM3ODE3MGJkOTlmOTk3ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=YWY2ZDA2OTE4ZDVlNTBmNzZlYjE1MTcxMGY0MDlmZTBjYWE2NGIwYmQwMzBhM2RjM2M0MGEwMzRiYjhmZDZkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGNkMmJlODU3NzljMjc0NWE2MTkwYWU3ODVlNjgxMWE0MjQ5ZWUwOGExM2VkZDNjYjAyNjY0MTQ1MTY4N2Q2OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%2333B679&amp;color=%23002ccc&amp;color=%23616161&amp;color=%23F09300&amp;color=%23D50000"
+										style="margin:auto;" width="800" height="600" frameborder="0"
+										scrolling="no"></iframe>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- ご予約フォームボタンセクション -->
+				<div class="mt-12">
+					<div class="flex justify-center">
+						<div class="w-full md:w-[990px]">
+							<a href="#" class="block w-full">
+								<button
+									class="w-full bg-[#4DB7B3] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#3da5a1] transition-colors duration-300 flex items-center justify-center gap-3">
+									<i class="fas fa-envelope text-xl"></i>
+									<span class="text-xl">ご予約フォーム</span>
+								</button>
+							</a>
+
+							<!-- 説明文 -->
+							<div class="mt-8 text-gray-700 text-sm space-y-3 text-left">
+								<p><strong>【定例会】</strong>４人より開催致します。「ご予約フォーム」よりご予約してください。表記が無い日はご予約出来ません。</p>
+								<p><strong>【開催決定】</strong>定例会の開催を致します。最高40名様までご予約頂けます。定例会開催日は飛び込みでのご参加も可能ですが、その場合はお席のご用意が出来ない可能性もありますので事前ご予約をお願い致します。
+								</p>
+								<p><strong>【満員御礼】</strong>定例会のご予約が満員の為、ご参加はキャンセル待ちとなります。</p>
+								<p><strong>【貸切募集中】</strong>「お問い合わせ」よりご予約ください。表記が無い日はご予約頂けません。</p>
+								<p><strong>【貸切決定】</strong>貸切時の一般の方の見学、ゲームへの参加は出来ません。</p>
+								<p><strong>【休日】</strong>フィールドメンテナンス等を行なっております。門が空いている場合が御座いますが、お客様のご入場は難くお断りさせて頂いております。
+								</p>
+							</div>
+
+							<!-- お天気モジュール -->
+							<div class="mt-4">
+								<object type="text/html" data="otenki.html" class="w-full h-auto"></object>
+							</div>
+
+							<!-- 追加文章セクション -->
+							<div class="mt-12">
+								<div class="flex justify-center">
+									<div class="w-full md:w-[990px]">
+										<!-- 定例会における開催中止条件 -->
+										<div class="mb-10">
+											<h3
+												class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">
+												定例会における開催中止条件</h3>
+											<div class="text-gray-700 space-y-4">
+												<p>開催人数を下回った場合、または開催日の天候等を考慮し開催するか否かを前日の20時〜21時頃に決定致します。</p>
+												<p>中止の場合はX（旧Twitter）やエントリー頂いたメールアドレスへその趣旨のご連絡を差し上げます。</p>
+											</div>
+										</div>
+
+										<!-- エントリーキャンセルについて -->
+										<div class="mb-10">
+											<h3
+												class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">
+												エントリーキャンセルについて</h3>
+											<div class="text-gray-700 space-y-4">
+												<p>やむを得ずキャンセルされる場合は前日、20時までに「お問い合わせ」よりその趣旨をご連絡下さい。</p>
+												<p>当日、キャンセルをせざるを得ない場合は緊急連絡先（090-9715-1979）まで必ずご一報ください。</p>
+												<p class="font-bold text-red-600">
+													「無断キャンセル」につきましては次回エントリー時に２回分の参加料を徴収させて頂きます。</p>
+											</div>
+										</div>
+
+										<!-- フィールド貸切料金セクション -->
+										<div class="mt-16">
+											<h3
+												class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-300">
+												フィールド貸切料金</h3>
+
+											<!-- テーブル -->
+											<div class="overflow-x-auto shadow-lg mb-6 py-6">
+												<div class="flex justify-center">
+													<table class="w-full md:w-[930px]">
+														<colgroup>
+															<col class="w-1/3"> <!-- 区分列 33% -->
+															<col class="w-2/3"> <!-- 料金列 67% -->
+														</colgroup>
+														<thead>
+															<tr>
+																<th
+																	class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">
+																	区分</th>
+																<th
+																	class="py-4 px-4 md:px-6 text-left font-bold md:text-lg text-base bg-gray-100 border-b border-gray-300 text-[#000000]">
+																	料金</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr class="border-b border-gray-200">
+																<td
+																	class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">
+																	定員</td>
+																<td
+																	class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">
+																	40名様</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td
+																	class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">
+																	平日</td>
+																<td
+																	class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">
+																	14,000円　<span
+																		class="text-xs">※4名様まで。以降1名様追加毎に3,000円</span>
+																</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td
+																	class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">
+																	土曜日</td>
+																<td
+																	class="py-4 px-4 md:px-6 md:text-base text-sm bg-[#eeeeee] text-[#000000] text-left">
+																	70,000円　<span
+																		class="text-xs">※20名様まで。以降1名様追加毎に3,500円</span>
+																</td>
+															</tr>
+															<tr class="border-b border-gray-200">
+																<td
+																	class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">
+																	日曜日・祝日</td>
+																<td
+																	class="py-4 px-4 md:px-6 md:text-base text-sm bg-white text-[#000000] text-left">
+																	105,000円　<span
+																		class="text-xs">※30名様まで。以後1名様追加毎に3,500円</span>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+
+											<!-- 注意書き -->
+											<p class="text-sm text-gray-600 mb-8">貸切はお問い合わせにて直接ご連絡ください。</p>
+
+											<!-- 角丸ボタン（ご予約フォームと同じ体裁） -->
+											<div class="mb-8">
+												<a href="contact.html" class="block w-full">
+													<button
+														class="w-full bg-[#4DB7B3] text-white font-bold py-4 px-6 rounded-lg hover:bg-[#3da5a1] transition-colors duration-300 flex items-center justify-center gap-3">
+														<i class="fas fa-envelope text-xl"></i>
+														<span class="text-xl">お問い合わせ</span>
+													</button>
+												</a>
+											</div>
+
+											<!-- リスト -->
+											<div class="text-gray-700 space-y-4 mb-8">
+												<ul class="list-disc pl-6 space-y-3 text-left">
+													<li>当フィールド貸切時に起きた怪我などの責任は一切負いません。お客様での安全管理の徹底をよろしくお願いいたします。</li>
+													<li>ゲーム進行はお客様にして頂きます。</li>
+													<li>スタッフが進行をお手伝いする場合は別途相談となります。</li>
+													<li>営業時間外の電話対応及びメールの返信はできません。予めご了承下さい。メールの返信に関しては翌営業時間にさせていただきます。
+													</li>
+													<li>貸切におけるキャンセル料は下記の通り発生いたします。
+														<ul class="list-[circle] pl-6 mt-2 space-y-2">
+															<li>ご利用当日の５日前まで…ご利用料金の半額</li>
+															<li>５日前からご利用当日…ご利用料金の全額</li>
+														</ul>
+													</li>
+												</ul>
+											</div>
+
+											<!-- 追加説明 -->
+											<div class="bg-blue-50 p-6 border border-blue-200 rounded-lg space-y-4 text-left">
+												<p class="text-gray-700">
+													※雨天予報時でも、基本的にフィールド側から中止を要請することはございませんが、台風接近や地震などの災害があった場合には、当フィールド側から中止をお願いすることがあります。その場合のキャンセル料金は発生しません。
+												</p>
+												<p class="text-gray-700">
+													※雨天予報時の場合につきまして、事前にお電話等で打ち合わせをしていただくことで、当日実施場合は参加費の割引や代替案の提示もしくは、お客様の事情を考慮し、スタッフの判断で通常よりも早い段階でのキャンセルの受付や、特例でキャンセル料金無しで承れる場合があります。
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 	</main>
 
 	<!-- Footer -->
@@ -81,18 +277,19 @@
 
 	<!-- JavaScript -->
 	<script>
-	fetch('header.html')
-	.then(res => res.text())
-	.then(data => {
-		document.getElementById('header').innerHTML = data;
-	});
+		fetch('header.html')
+			.then(res => res.text())
+			.then(data => {
+				document.getElementById('header').innerHTML = data;
+			});
 
-	fetch('footer.html')
-	.then(res => res.text())
-	.then(data => {
-		document.getElementById('footer').innerHTML = data;
-	});
+		fetch('footer.html')
+			.then(res => res.text())
+			.then(data => {
+				document.getElementById('footer').innerHTML = data;
+			});
 	</script>
 	<script src="assets/js/main.js"></script>
 </body>
+
 </html>

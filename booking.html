@@ -68,11 +68,100 @@
 				<p class="md:text-xl text-lg text-gray-600">WEST FIELD ご予約フォーム</p>
 			</div>
 
-			<!-- ここにご予約の内容を追加 -->
-			<div class="text-center text-gray-500 py-16">
-				<p class="text-lg">ご予約の内容はこちらに記述されます。</p>
-				<p class="text-sm mt-4">（この部分は後で詳細な予約フォームで置き換えてください）</p>
-			</div>
+			<!-- ここにご予約フォーム -->
+			<section class="max-w-5xl mx-auto">
+				<h2 class="text-2xl font-bold text-gray-800">定例会ご予約</h2>
+				<hr class="mt-4 mb-10 border-gray-200">
+
+				<form action="#" method="post" class="space-y-8">
+					<!-- 氏名（漢字） -->
+					<div>
+						<label for="name_kanji" class="block text-sm font-bold text-gray-700 mb-2">氏名（漢字）</label>
+						<input id="name_kanji" name="name_kanji" type="text" autocomplete="name" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- 氏名（ひらがな） -->
+					<div>
+						<label for="name_kana" class="block text-sm font-bold text-gray-700 mb-2">氏名（ひらがな）</label>
+						<input id="name_kana" name="name_kana" type="text" autocomplete="off" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- メールアドレス（半角英数） -->
+					<div>
+						<label for="email" class="block text-sm font-bold text-gray-700 mb-2">メールアドレス（半角英数）</label>
+						<input id="email" name="email" type="email" autocomplete="email" inputmode="email" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- ご住所 -->
+					<div>
+						<label for="address" class="block text-sm font-bold text-gray-700 mb-2">ご住所</label>
+						<input id="address" name="address" type="text" autocomplete="street-address" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- 電話番号（半角英数） -->
+					<div>
+						<label for="tel" class="block text-sm font-bold text-gray-700 mb-2">電話番号（半角英数）</label>
+						<input id="tel" name="tel" type="tel" autocomplete="tel" inputmode="tel" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- 参加日 -->
+					<div>
+						<label for="event_date" class="block text-sm font-bold text-gray-700 mb-2">参加日<span class="font-normal">※記載例を参考にご入力下さい。</span></label>
+						<input id="event_date" name="event_date" type="text" placeholder="例：XX月XX日" class="w-full border border-gray-300 h-12 px-4 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- チーム名 -->
+					<div>
+						<label for="team_name" class="block text-sm font-bold text-gray-700 mb-2">チーム名<span class="font-normal">（Twitterアカウントを記載して良いはアカウント名も）</span></label>
+						<input id="team_name" name="team_name" type="text" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- ご利用人数 -->
+					<div>
+						<label for="people" class="block text-sm font-bold text-gray-700 mb-2">ご利用人数（半角数字）</label>
+						<input id="people" name="people" type="number" min="1" step="1" inputmode="numeric" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- 参加者 -->
+					<div>
+						<label for="participants" class="block text-sm font-bold text-gray-700 mb-2">参加者<span class="font-normal">※代表者の氏名をご記入下さい。</span></label>
+						<input id="participants" name="participants" type="text" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- 送迎 -->
+					<div>
+						<label for="pickup" class="block text-sm font-bold text-gray-700 mb-2">河内長野駅からの送迎</label>
+						<select id="pickup" name="pickup" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary">
+							<option value="" selected>—Please choose an option—</option>
+							<option value="yes">有り</option>
+							<option value="no">無し</option>
+						</select>
+					</div>
+
+					<!-- 送迎人数 -->
+					<div>
+						<p class="text-sm font-bold text-gray-700 mb-2">送迎を「有り」にした方は人数の記載もお願いいたします。<span class="font-normal">※記載がない場合対応ができかねることもございますのでご注意下さい。</span></p>
+						<input id="pickup_people" name="pickup_people" type="text" placeholder="例：5人など" class="w-full border border-gray-300 h-12 px-4 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- レンタル品（電動ガン） -->
+					<div>
+						<label for="rental_gun" class="block text-sm font-bold text-gray-700 mb-2">レンタル品（電動ガン）</label>
+						<input id="rental_gun" name="rental_gun" type="text" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- レンタル品（ゴーグル） -->
+					<div>
+						<label for="rental_goggle" class="block text-sm font-bold text-gray-700 mb-2">レンタル品（ゴーグル）</label>
+						<input id="rental_goggle" name="rental_goggle" type="text" class="w-full border border-gray-300 h-12 px-4 bg-white focus:outline-none focus:ring-2 focus:ring-primary" />
+					</div>
+
+					<!-- 送信 -->
+					<div class="pt-2">
+						<button type="submit" class="inline-flex items-center justify-center px-8 h-10 bg-primary text-white font-bold hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-primary">送信</button>
+					</div>
+				</form>
+			</section>
 		</div>
 	</main>
 
