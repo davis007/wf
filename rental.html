@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>レンタル・販売・設備 - WEST FIELD</title>
+	<!-- Tailwind CSS CDN with custom config -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+	  tailwind.config = {
+		theme: {
+		  extend: {
+			colors: {
+			  'primary': '#56BAB6',
+			  'secondary': '#2C3E50',
+			},
+			fontFamily: {
+			  'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
+			},
+			screens: {
+			  'xs': '480px',
+			  'lg': '1080px',
+			},
+			maxWidth: {
+			  'large-12': '1080px',
+			},
+			animation: {
+			  'slide-in': 'slideIn 0.3s ease-in-out',
+			  'slide-out': 'slideOut 0.3s ease-in-out',
+			},
+			keyframes: {
+			  slideIn: {
+				'0%': { transform: 'translateX(-100%)' },
+				'100%': { transform: 'translateX(0)' },
+			  },
+			  slideOut: {
+				'0%': { transform: 'translateX(0)' },
+				'100%': { transform: 'translateX(-100%)' },
+			  },
+			},
+		  },
+		},
+	  }
+	</script>
+	<!-- Font Awesome for icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="assets/css/style.css">
+	<!-- Favicon -->
+	<link rel="icon" type="image/x-icon" href="assets/img/logo.jpg">
+</head>
+<body class="font-sans">
+	<!-- Header -->
+	<div id="header"></div>
+
+	<!-- Main Content -->
+	<main class="pt-0 min-h-screen">
+		<!-- メインカラム（1080px内側が白背景、外側は背景画像） -->
+		<div class="max-w-large-12 mx-auto w-full px-4 py-12 bg-white mt-[65px]">
+			<!-- 1. 中央にロゴマーク 173x173px -->
+			<div class="flex justify-center mb-6">
+				<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
+			</div>
+
+			<!-- 2. ロゴの下にテキスト -->
+			<div class="text-center mb-12">
+				<h1 class="md:text-4xl text-3xl font-bold text-gray-800 mb-2">レンタル・販売・設備</h1>
+				<p class="md:text-xl text-lg text-gray-600">WEST FIELD レンタル・販売・設備情報</p>
+			</div>
+
+			<!-- ここにレンタル・販売・設備の内容を追加 -->
+			<div class="text-center text-gray-500 py-16">
+				<p class="text-lg">レンタル・販売・設備の内容はこちらに記述されます。</p>
+				<p class="text-sm mt-4">（この部分は後で詳細なレンタル・販売・設備情報で置き換えてください）</p>
+			</div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<div id="footer"></div>
+
+	<!-- JavaScript -->
+	<script>
+	fetch('header.html')
+	.then(res => res.text())
+	.then(data => {
+		document.getElementById('header').innerHTML = data;
+	});
+
+	fetch('footer.html')
+	.then(res => res.text())
+	.then(data => {
+		document.getElementById('footer').innerHTML = data;
+	});
+	</script>
+	<script src="assets/js/main.js"></script>
+</body>
+</html>
