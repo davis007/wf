@@ -25,8 +25,20 @@
     visibility: visible;
 }
 
+/* オフキャンバスメニューのナビゲーションスタイル */
+#offCanvasMenu nav {
+    display: flex;
+    flex-direction: column;
+}
+
+#offCanvasMenu nav a {
+    display: block;
+    width: 100%;
+}
+
 /* モバイル対応の追加スタイル */
 @media (max-width: 640px) {
+
     /* スマホ用の微調整 */
     .container {
         padding-left: 1rem;
@@ -35,7 +47,8 @@
 
     /* メニューテキストのサイズ調整 */
     #offCanvasMenu nav a {
-        font-size: 1.125rem; /* text-lg相当 */
+        font-size: 1.125rem;
+        /* text-lg相当 */
     }
 }
 
@@ -124,6 +137,7 @@ main {
 
 /* モバイルでの調整 */
 @media (max-width: 640px) {
+
     /* モバイルでは背景画像のリピートを控えめに */
     main {
         background-repeat: repeat-y;

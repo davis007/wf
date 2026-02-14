@@ -112,11 +112,8 @@
 		if (isMobileDevice() && menuToggle) {
 			// タッチイベントの最適化
 			menuToggle.style.cursor = 'pointer';
-
-			// タッチホールド防止
-			menuToggle.addEventListener('touchstart', function(e) {
-				e.preventDefault();
-			}, { passive: false });
+			// タッチイベントを通常のクリックイベントで処理するため、
+			// preventDefaultは使用しない
 		}
 
 		console.log('WEST FIELD サイトのJavaScriptが正常に読み込まれました。');
