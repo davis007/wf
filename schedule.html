@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +8,40 @@
 	<!-- Tailwind CSS CDN with custom config -->
 	<script src="https://cdn.tailwindcss.com"></script>
 	<script>
-	  tailwind.config = {
-		theme: {
-		  extend: {
-			colors: {
-			  'primary': '#56BAB6',
-			  'secondary': '#2C3E50',
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						'primary': '#56BAB6',
+						'secondary': '#2C3E50',
+					},
+					fontFamily: {
+						'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
+					},
+					screens: {
+						'xs': '480px',
+						'lg': '1080px',
+					},
+					maxWidth: {
+						'large-12': '1080px',
+					},
+					animation: {
+						'slide-in': 'slideIn 0.3s ease-in-out',
+						'slide-out': 'slideOut 0.3s ease-in-out',
+					},
+					keyframes: {
+						slideIn: {
+							'0%': { transform: 'translateX(-100%)' },
+							'100%': { transform: 'translateX(0)' },
+						},
+						slideOut: {
+							'0%': { transform: 'translateX(0)' },
+							'100%': { transform: 'translateX(-100%)' },
+						},
+					},
+				},
 			},
-			fontFamily: {
-			  'sans': ['"Hiragino Sans"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif'],
-			},
-			screens: {
-			  'xs': '480px',
-			  'lg': '1080px',
-			},
-			maxWidth: {
-			  'large-12': '1080px',
-			},
-			animation: {
-			  'slide-in': 'slideIn 0.3s ease-in-out',
-			  'slide-out': 'slideOut 0.3s ease-in-out',
-			},
-			keyframes: {
-			  slideIn: {
-				'0%': { transform: 'translateX(-100%)' },
-				'100%': { transform: 'translateX(0)' },
-			  },
-			  slideOut: {
-				'0%': { transform: 'translateX(0)' },
-				'100%': { transform: 'translateX(-100%)' },
-			  },
-			},
-		  },
-		},
-	  }
+		}
 	</script>
 	<!-- Font Awesome for icons -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -49,6 +50,7 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="assets/img/logo.jpg">
 </head>
+
 <body class="font-sans">
 	<!-- Header -->
 	<div id="header"></div>
@@ -59,20 +61,21 @@
 		<div class="max-w-large-12 mx-auto w-full px-4 py-12 bg-white mt-[65px]">
 			<!-- コンテンツを中央揃えするためのコンテナ -->
 			<div class="max-w-[990px] mx-auto">
-			<!-- 1. 中央にロゴマーク 173x173px -->
-			<div class="flex justify-center mb-6">
-				<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
-			</div>
+				<!-- 1. 中央にロゴマーク 173x173px -->
+				<div class="flex justify-center mb-6">
+					<img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ"
+						class="md:w-[173px] md:h-[173px] w-[140px] h-[140px] object-contain">
+				</div>
 
-			<!-- 2. ロゴの下にテキスト -->
-			<div class="text-center mb-12">
-				<h1 class="md:text-4xl text-3xl font-bold text-gray-800 mb-2">定例会タイムスケジュール</h1>
-				<p class="md:text-xl text-lg text-gray-600">WEST FIELD タイムスケジュール</p>
-			</div>
+				<!-- 2. ロゴの下にテキスト -->
+				<div class="text-center mb-12">
+					<h1 class="md:text-4xl text-3xl font-bold text-gray-800 mb-2">定例会タイムスケジュール</h1>
+					<p class="md:text-xl text-lg text-gray-600">WEST FIELD タイムスケジュール</p>
+				</div>
 
-			<!-- ここに定例会タイムスケジュールの内容を追加 -->
-			<div class="text-center text-gray-500 py-16">
-			<!-- 定例会タイムスケジュールセクション -->
+				<!-- ここに定例会タイムスケジュールの内容を追加 -->
+				<div class="text-center text-gray-500 py-16">
+					<!-- 定例会タイムスケジュールセクション -->
 					<!-- 左右配置ボックス -->
 					<div class="flex flex-col md:flex-row gap-8 mb-8">
 						<!-- 左側：テキスト -->
@@ -132,6 +135,84 @@
 
 					<!-- 注意書き -->
 					<p class="text-gray-700">※ご来場いただきましたらまず、受付と弾速チェックの実施にご協力お願いします。</p>
+
+					<!-- 夜戦定例会セクション -->
+					<div class="mt-20 pt-16 border-t border-gray-200">
+						<h2 class="md:text-4xl text-3xl font-bold text-gray-800 mb-2 text-center">夜戦定例会</h2>
+						<p class="md:text-xl text-lg text-gray-600 mb-12 text-center">夜戦のタイムスケジュール&料金</p>
+
+						<!-- 左右配置ボックス -->
+						<div class="flex flex-col md:flex-row gap-8 mb-8">
+							<!-- 左側:タイムスケジュール -->
+							<div class="flex-1">
+								<div class="bg-gray-50 p-8 rounded-lg">
+									<div class="space-y-6 text-gray-800">
+										<div class="flex items-center">
+											<div class="w-24 font-bold text-right">18:00</div>
+											<div class="flex-1 pl-4">ゲートオープン・受付</div>
+										</div>
+										<div class="flex items-center">
+											<div class="w-24 font-bold text-right">18:30</div>
+											<div class="flex-1 pl-4">弾速チェック・フィールド説明・ゲームスタート</div>
+										</div>
+										<div class="flex items-center">
+											<div class="w-24 font-bold text-right">23:30</div>
+											<div class="flex-1 pl-4">ゲートクローズ</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 右側:料金 -->
+							<div class="flex-1">
+								<div class="bg-gray-50 p-8 rounded-lg">
+									<div class="space-y-4 text-gray-800">
+										<div class="flex items-center">
+											<div class="w-24 font-bold text-right">男性</div>
+											<div class="flex-1 pl-4">3,000円</div>
+										</div>
+										<div class="flex items-center">
+											<div class="w-24 font-bold text-right">女性</div>
+											<div class="flex-1 pl-4">2,000円</div>
+										</div>
+										<div class="flex items-center">
+											<div class="w-24 font-bold text-right">学割</div>
+											<div class="flex-1 pl-4">2,500円</div>
+										</div>
+										<div class="flex items-center">
+											<div class="w-24 font-bold text-right">お子様</div>
+											<div class="flex-1 pl-4">1,000円</div>
+										</div>
+									</div>
+									<p class="text-sm text-gray-600 mt-6">
+										※18歳未満のお客様は保護者同伴にてご参加可能になります
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<!-- 夜戦貸切料金 -->
+						<div class="bg-gray-50 p-8 rounded-lg mb-8">
+							<h3 class="text-xl font-bold text-gray-800 mb-6">⬇️夜戦貸切料金</h3>
+							<div class="space-y-4 text-gray-800">
+								<div class="flex items-start">
+									<div class="w-24 font-bold text-right flex-shrink-0">平日</div>
+									<div class="flex-1 pl-4">
+										最低貸切人数6名様18,000円、以降お一人様3,000円（男女年齢問わず）
+									</div>
+								</div>
+								<div class="flex items-start">
+									<div class="w-24 font-bold text-right flex-shrink-0">土日祝</div>
+									<div class="flex-1 pl-4">
+										最低貸切人数10名様30,000円、以降お一人様3,000円（男女年齢問わず）
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 注意書き -->
+						<p class="text-gray-700">※ご来場いただきましたらまず、受付と弾速チェックの実施にご協力お願いします。</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -142,18 +223,19 @@
 
 	<!-- JavaScript -->
 	<script>
-	fetch('header.html')
-	.then(res => res.text())
-	.then(data => {
-		document.getElementById('header').innerHTML = data;
-	});
+		fetch('header.html')
+			.then(res => res.text())
+			.then(data => {
+				document.getElementById('header').innerHTML = data;
+			});
 
-	fetch('footer.html')
-	.then(res => res.text())
-	.then(data => {
-		document.getElementById('footer').innerHTML = data;
-	});
+		fetch('footer.html')
+			.then(res => res.text())
+			.then(data => {
+				document.getElementById('footer').innerHTML = data;
+			});
 	</script>
 	<script src="assets/js/main.js"></script>
 </body>
+
 </html>
