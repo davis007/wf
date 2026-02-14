@@ -18,7 +18,7 @@
 <body class="bg-gray-100 min-h-screen">
     <!-- ナビゲーションバー -->
     <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 lg:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <!-- ロゴとタイトル -->
@@ -27,7 +27,7 @@
                     </div>
 
                     <!-- デスクトップメニュー -->
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
                         <a href="dashboard.php" class="<?php echo ($current_page === 'dashboard') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'; ?> inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             <i class="fas fa-tachometer-alt mr-2"></i>ダッシュボード
                         </a>
@@ -42,6 +42,12 @@
                         </a>
                         <a href="signature.php" class="<?php echo ($current_page === 'signature') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'; ?> inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                             <i class="fas fa-signature mr-2"></i>署名編集
+                        </a>
+                        <a href="bookings.php" class="<?php echo ($current_page === 'bookings') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'; ?> inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            <i class="fas fa-calendar-check mr-2"></i>予約管理
+                        </a>
+                        <a href="booking_templates.php" class="<?php echo ($current_page === 'booking_templates') ? 'border-blue-500 text-gray-900' : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'; ?> inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            <i class="fas fa-mail-bulk mr-2"></i>予約定型メール
                         </a>
                     </div>
                 </div>
@@ -65,7 +71,7 @@
                     </div>
 
                     <!-- バーガーメニューボタン（モバイル用） -->
-                    <div class="sm:hidden">
+                    <div class="lg:hidden">
                         <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-700 focus:outline-none">
                             <i class="fas fa-bars text-xl"></i>
                         </button>
@@ -75,7 +81,7 @@
         </div>
 
         <!-- モバイルメニュー -->
-        <div id="mobile-menu" class="mobile-menu sm:hidden bg-white border-t border-gray-200">
+        <div id="mobile-menu" class="mobile-menu lg:hidden bg-white border-t border-gray-200">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="dashboard.php" class="<?php echo ($current_page === 'dashboard') ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'; ?> block px-3 py-2 rounded-md text-base font-medium">
                     <i class="fas fa-tachometer-alt mr-2"></i>ダッシュボード
@@ -92,6 +98,12 @@
                 <a href="signature.php" class="<?php echo ($current_page === 'signature') ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'; ?> block px-3 py-2 rounded-md text-base font-medium">
                     <i class="fas fa-signature mr-2"></i>署名編集
                 </a>
+                <a href="bookings.php" class="<?php echo ($current_page === 'bookings') ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'; ?> block px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-calendar-check mr-2"></i>予約管理
+                </a>
+                <a href="booking_templates.php" class="<?php echo ($current_page === 'booking_templates') ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'; ?> block px-3 py-2 rounded-md text-base font-medium">
+                    <i class="fas fa-mail-bulk mr-2"></i>予約定型メール
+                </a>
                 <div class="border-t border-gray-200 pt-2 mt-2">
                     <div class="px-3 py-2 text-sm text-gray-500">
                         <i class="fas fa-user-circle mr-2"></i><?php echo htmlspecialchars($admin_email); ?>
@@ -104,7 +116,7 @@
         </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto py-6 lg:px-6 lg:px-8">
 
 <script>
     // モバイルメニューのトグル

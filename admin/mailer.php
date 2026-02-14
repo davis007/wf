@@ -29,64 +29,106 @@ class Mailer {
      * @return bool 送信成功時true、失敗時false
      */
     public function send($to, $name, $subject, $body) {
-        // メールヘッダー
-        $headers = [
-            'From' => mb_encode_mimeheader($this->from_name) . ' <' . $this->from_email . '>',
-            'Reply-To' => $this->from_email,
-            'Return-Path' => $this->from_email,
-            'Content-Type' => 'text/plain; charset=UTF-8',
-            'Content-Transfer-Encoding' => '8bit',
-            'MIME-Version' => '1.0',
-            'X-Mailer' => 'PHP/' . phpversion()
-        ];
-
-        // ヘッダー文字列に変換
-        $header_string = '';
-        foreach ($headers as $key => $value) {
-            $header_string .= $key . ': ' . $value . "\r\n";
-        }
-
         // 件名をエンコード
-        $encoded_subject = mb_encode_mimeheader($subject, 'UTF-8', 'B', "\r\n");
+        $encoded_subject = mb_encode_mimeheader($subject, 'UTF-8', 'B');
 
         // 本文を正規化（CRLFに統一）
         $body = str_replace("\r\n", "\n", $body);
         $body = str_replace("\r", "\n", $body);
         $body = str_replace("\n", "\r\n", $body);
 
-        // SMTP認証が必要な場合
-        if (!empty($this->username) && !empty($this->password)) {
-            return $this->sendViaSMTP($to, $encoded_subject, $body, $header_string);
+        // SMTP認証情報がある場合、またはポートがSMTP用の場合
+        if (!empty($this->host) && ($this->host !== 'localhost' || !empty($this->username))) {
+            return $this->sendViaSMTP($to, $name, $encoded_subject, $body);
         }
 
-        // 標準のmail()関数を使用
-        return mail($to, $encoded_subject, $body, $header_string);
+        // それ以外は標準のmail()関数（互換性のため残す）
+        $headers = "From: " . mb_encode_mimeheader($this->from_name) . " <" . $this->from_email . ">\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        return mail($to, $encoded_subject, $body, $headers);
     }
 
     /**
-     * SMTP経由でメールを送信する（簡易実装）
-     * 実際の実装ではPHPMailerやSwiftMailerなどのライブラリを使用することを推奨
+     * SMTP経由でメールを送信する
      */
-    private function sendViaSMTP($to, $subject, $body, $headers) {
-        // 簡易実装：実際のSMTP送信は外部ライブラリを使用することを推奨
-        // ここではmail()関数を使用し、SMTP設定はphp.iniで行うことを想定
+    private function sendViaSMTP($to, $name, $subject, $body) {
+        $host = $this->host;
+        if ($this->port == 465) {
+            $host = 'ssl://' . $host;
+        }
 
-        error_log("SMTP送信: {$to}, 件名: {$subject}");
-
-        // 実際の実装では以下のようなSMTP接続処理が必要：
-        /*
-        $socket = fsockopen($this->host, $this->port, $errno, $errstr, 30);
+        $socket = @fsockopen($host, $this->port, $errno, $errstr, 10);
         if (!$socket) {
-            error_log("SMTP接続エラー: {$errno} - {$errstr}");
+            error_log("SMTP接続失敗: {$errno} - {$errstr}");
             return false;
         }
 
-        // SMTPコマンドのやり取り...
-        fclose($socket);
-        */
+        $this->getResponse($socket); // サーバーの挨拶を待つ
 
-        // 暫定実装：mail()関数を使用
-        return mail($to, $subject, $body, $headers);
+        // HELO/EHLO
+        fwrite($socket, "EHLO " . ($_SERVER['SERVER_NAME'] ?? 'localhost') . "\r\n");
+        $this->getResponse($socket);
+
+        // 認証
+        if (!empty($this->username) && !empty($this->password)) {
+            fwrite($socket, "AUTH LOGIN\r\n");
+            $this->getResponse($socket);
+
+            fwrite($socket, base64_encode($this->username) . "\r\n");
+            $this->getResponse($socket);
+
+            fwrite($socket, base64_encode($this->password) . "\r\n");
+            $response = $this->getResponse($socket);
+
+            if (strpos($response, '235') === false) {
+                error_log("SMTP認証失敗: " . $response);
+                fwrite($socket, "QUIT\r\n");
+                fclose($socket);
+                return false;
+            }
+        }
+
+        // MAIL FROM
+        fwrite($socket, "MAIL FROM: <{$this->from_email}>\r\n");
+        $this->getResponse($socket);
+
+        // RCPT TO
+        fwrite($socket, "RCPT TO: <{$to}>\r\n");
+        $this->getResponse($socket);
+
+        // DATA
+        fwrite($socket, "DATA\r\n");
+        $this->getResponse($socket);
+
+        // メッセージ本体
+        $headers = "From: " . mb_encode_mimeheader($this->from_name) . " <{$this->from_email}>\r\n";
+        $headers .= "To: " . mb_encode_mimeheader($name) . " <{$to}>\r\n";
+        $headers .= "Subject: {$subject}\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+        $headers .= "Content-Transfer-Encoding: 8bit\r\n";
+        $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+        $headers .= "\r\n";
+
+        fwrite($socket, $headers . $body . "\r\n.\r\n");
+        $response = $this->getResponse($socket);
+
+        // QUIT
+        fwrite($socket, "QUIT\r\n");
+        fclose($socket);
+
+        return (strpos($response, '250') !== false);
+    }
+
+    private function getResponse($socket) {
+        $response = "";
+        while ($str = fgets($socket, 512)) {
+            $response .= $str;
+            if (substr($str, 3, 1) == " ") {
+                break;
+            }
+        }
+        return $response;
     }
 
     /**
