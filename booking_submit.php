@@ -120,7 +120,13 @@ function send_booking_emails($data) {
     // 1. 管理者へ通知
     $admin_subject = '【WEST FIELD】新規予約がありました';
     $admin_body = "新規予約がありました。\n\n";
-    $admin_body .= "■予約種別: " . ($data['booking_type'] === 'night_battle' ? '夜戦' : '通常') . "\n";
+    $booking_type_label = '通常';
+    if ($data['booking_type'] === 'night_battle') {
+        $booking_type_label = '夜戦';
+    } elseif ($data['booking_type'] === 'rental') {
+        $booking_type_label = '貸切';
+    }
+    $admin_body .= "■予約種別: " . $booking_type_label . "\n";
     $admin_body .= "■お名前: " . $data['name_kanji'] . " (" . $data['name_kana'] . ")\n";
     $admin_body .= "■メール: " . $data['email'] . "\n";
     $admin_body .= "■電話番号: " . $data['tel'] . "\n";

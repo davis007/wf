@@ -22,7 +22,11 @@
         <div class="bg-white shadow rounded-lg overflow-hidden">
             <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
                 <h3 class="text-lg font-medium text-gray-900">
-                    <?php echo $template['type'] === 'normal' ? '通常予約（定例会）テンプレート' : '夜戦予約テンプレート'; ?>
+                    <?php
+                        if ($template['type'] === 'normal') echo '通常予約（定例会）テンプレート';
+                        elseif ($template['type'] === 'night_battle') echo '夜戦予約テンプレート';
+                        elseif ($template['type'] === 'rental') echo '貸切予約テンプレート';
+                    ?>
                 </h3>
                 <p class="text-sm text-gray-500">最終更新: <?php echo $template['updated_at']; ?></p>
             </div>

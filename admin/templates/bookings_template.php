@@ -55,7 +55,13 @@
                     <table class="min-w-full text-sm">
                         <tr>
                             <td class="py-2 font-medium text-gray-500 w-1/3">予約種別</td>
-                            <td class="py-2 text-gray-900"><?php echo $view_booking['booking_type'] === 'night_battle' ? '夜戦' : '通常（定例会）'; ?></td>
+                            <td class="py-2 text-gray-900">
+                                <?php
+                                    if ($view_booking['booking_type'] === 'night_battle') echo '夜戦';
+                                    elseif ($view_booking['booking_type'] === 'rental') echo '貸切';
+                                    else echo '通常（定例会）';
+                                ?>
+                            </td>
                         </tr>
                         <tr>
                             <td class="py-2 font-medium text-gray-500">氏名</td>
@@ -170,8 +176,17 @@ WEST FIELDです。
                                 <?php echo date('Y/m/d H:i', strtotime($booking['created_at'])); ?>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <?php echo $booking['booking_type'] === 'night_battle' ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800'; ?>">
-                                    <?php echo $booking['booking_type'] === 'night_battle' ? '夜戦' : '通常'; ?>
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                    <?php
+                                        if ($booking['booking_type'] === 'night_battle') echo 'bg-purple-100 text-purple-800';
+                                        elseif ($booking['booking_type'] === 'rental') echo 'bg-blue-100 text-blue-800';
+                                        else echo 'bg-green-100 text-green-800';
+                                    ?>">
+                                    <?php
+                                        if ($booking['booking_type'] === 'night_battle') echo '夜戦';
+                                        elseif ($booking['booking_type'] === 'rental') echo '貸切';
+                                        else echo '通常';
+                                    ?>
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">

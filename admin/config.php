@@ -197,6 +197,11 @@ function init_database() {
                 'type' => 'night_battle',
                 'subject' => '【WEST FIELD】夜戦ご予約を承りました',
                 'content' => "{name} 様\n\nこの度はWEST FIELDの夜戦にご予約いただき、誠にありがとうございます。\n以下の内容でご予約を承りました。\n\n■参加日: {event_date}\n■チーム名: {team_name}\n■ご利用人数: {people}名\n■代表者名: {participants}\n■送迎: {pickup_status}\n■レンタル品（電動ガン）: {rental_gun}\n■レンタル品（ゴーグル）: {rental_goggle}\n\n夜戦は非常に暗くなりますので、ライト等の準備をお願いいたします。\n当日、楽しみにしております。\n\n---\nWEST FIELD\nhttps://westfield.example.com"
+            ],
+            [
+                'type' => 'rental',
+                'subject' => '【WEST FIELD】貸切予約を承りました',
+                'content' => "{name} 様\n\nこの度はWEST FIELDの貸切をご予約いただき、誠にありがとうございます。\n以下の内容でご予約を承りました。\n\n■参加日: {event_date}\n■チーム名: {team_name}\n■ご利用人数: {people}名\n■代表者名: {participants}\n■送迎: {pickup_status}\n■レンタル品（電動ガン）: {rental_gun}\n■レンタル品（ゴーグル）: {rental_goggle}\n\n貸切当日は、皆様のご来場を心よりお待ちしております。\nご不明な点がございましたら、お気軽にお問い合わせください。\n\n---\nWEST FIELD\nhttps://westfield.example.com"
             ]
         ];
         $stmt = $db->prepare("INSERT INTO booking_templates (type, subject, content) VALUES (?, ?, ?)");

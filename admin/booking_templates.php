@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'CSRFトークンが無効です';
     } elseif (empty($subject) || empty($content)) {
         $error = '件名と本文は必須です';
-    } elseif (!in_array($type, ['normal', 'night_battle'])) {
+    } elseif (!in_array($type, ['normal', 'night_battle', 'rental'])) {
         $error = '無効なテンプレート種別です';
     } else {
         try {
