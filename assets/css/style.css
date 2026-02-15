@@ -1,6 +1,12 @@
 /* Custom CSS - 最小限のカスタムスタイルのみ */
 /* 基本的なスタイルはTailwindで実装 */
 
+/* CRITICAL: Tailwind CDNが読み込まれる前にメニューを非表示にする */
+/* これがないとページロード時にメニューが一瞬表示されてしまう (FOUC) */
+.hidden {
+    display: none !important;
+}
+
 /* オフキャンバスメニューのアニメーション用 */
 .offcanvas-open {
     transform: translateX(0) !important;

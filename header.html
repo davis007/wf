@@ -1,48 +1,56 @@
 <!-- Header -->
-<header class="fixed top-0 left-0 w-full h-[65px] bg-white shadow-md z-50">
+<header class="fixed top-0 left-0 w-full h-[65px] bg-white shadow-md" style="z-index:50;">
     <div class="max-w-large-12 mx-auto w-full px-4 h-full flex items-center justify-between">
         <!-- Left: Burger Menu -->
-        <div class="flex items-center space-x-2">
-            <button id="menuToggle" class="text-[#56BAB6] focus:outline-none flex items-center">
-                <i class="fas fa-bars text-2xl"></i>
-                <span class="text-[#56BAB6] font-medium ml-2 relative top-[0px]">MENU</span>
+        <div class="flex items-center">
+            <button id="menuToggle" class="text-[#56BAB6] focus:outline-none flex items-center" style="color:#56BAB6;">
+                <i class="fas fa-bars text-2xl" style="font-size:1.5rem;"></i>
+                <span class="font-medium" style="color:#56BAB6; margin-left:10px;">MENU</span>
             </button>
 
         </div>
 
         <!-- Center: Logo -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center">
-            <a href="/" class="h-full flex items-center">
-                <img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" class="h-[55px] w-auto max-h-full object-contain">
+        <div class="absolute left-1/2 transform -translate-x-1/2 h-full flex items-center"
+            style="position:absolute; left:50%; transform:translateX(-50%); height:100%; display:flex; align-items:center;">
+            <a href="/" style="height:100%; display:flex; align-items:center;">
+                <img src="assets/img/logo.jpg" alt="WEST FIELD ロゴ" style="height:55px; width:auto; object-fit:contain;">
             </a>
         </div>
 
         <!-- Right: Placeholder for future elements -->
-        <div class="w-20"></div>
+        <div style="width:80px;"></div>
     </div>
 </header>
 
 <!-- Off-canvas Menu -->
 <div id="offCanvasMenu"
-    class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-x-full transition-transform duration-300 ease-in-out overflow-y-auto">
-    <div class="w-full px-6 pt-20 pb-8">
-        <nav class="flex flex-col space-y-4">
+    style="display:none; position:fixed; top:0; left:0; width:100%; min-height:100vh; background:#fff; z-index:9999; transform:translateX(-100%); transition:transform 0.3s ease-in-out; overflow-y:auto;">
+    <!-- Close Button -->
+    <div style="position:absolute; top:15px; right:15px; z-index:10000;">
+        <button id="menuClose"
+            style="font-size:28px; color:#56BAB6; background:none; border:none; cursor:pointer; padding:5px 10px;">
+            ✕
+        </button>
+    </div>
+    <div style="width:100%; padding:70px 24px 32px 24px; min-height:100vh;">
+        <nav style="display:flex; flex-direction:column; gap:0;">
             <a href="/"
-                class="block text-gray-800 hover:text-[#56BAB6] text-lg font-medium py-3 border-b border-gray-200">HOME</a>
+                style="display:block; color:#333; font-size:1.125rem; font-weight:500; padding:14px 0; border-bottom:1px solid #e5e7eb; text-decoration:none;">HOME</a>
             <a href="reservation.html"
-                class="block text-gray-800 hover:text-[#56BAB6] text-lg font-medium py-3 border-b border-gray-200">定例会・夜戦・貸切ご予約</a>
+                style="display:block; color:#333; font-size:1.125rem; font-weight:500; padding:14px 0; border-bottom:1px solid #e5e7eb; text-decoration:none;">定例会・夜戦・貸切ご予約</a>
             <a href="regulation.html"
-                class="block text-gray-800 hover:text-[#56BAB6] text-lg font-medium py-3 border-b border-gray-200">レギュレーション</a>
+                style="display:block; color:#333; font-size:1.125rem; font-weight:500; padding:14px 0; border-bottom:1px solid #e5e7eb; text-decoration:none;">レギュレーション</a>
             <a href="schedule.html"
-                class="block text-gray-800 hover:text-[#56BAB6] text-lg font-medium py-3 border-b border-gray-200">定例会タイムスケジュール</a>
+                style="display:block; color:#333; font-size:1.125rem; font-weight:500; padding:14px 0; border-bottom:1px solid #e5e7eb; text-decoration:none;">定例会タイムスケジュール</a>
             <a href="access.html"
-                class="block text-gray-800 hover:text-[#56BAB6] text-lg font-medium py-3 border-b border-gray-200">アクセス</a>
+                style="display:block; color:#333; font-size:1.125rem; font-weight:500; padding:14px 0; border-bottom:1px solid #e5e7eb; text-decoration:none;">アクセス</a>
             <a href="rental.html"
-                class="block text-gray-800 hover:text-[#56BAB6] text-lg font-medium py-3 border-b border-gray-200">レンタル・販売・設備</a>
+                style="display:block; color:#333; font-size:1.125rem; font-weight:500; padding:14px 0; border-bottom:1px solid #e5e7eb; text-decoration:none;">レンタル・販売・設備</a>
             <a href="booking.html"
-                class="block text-gray-800 hover:text-[#56BAB6] text-lg font-medium py-3 border-b border-gray-200">ご予約</a>
+                style="display:block; color:#333; font-size:1.125rem; font-weight:500; padding:14px 0; border-bottom:1px solid #e5e7eb; text-decoration:none;">ご予約</a>
             <a href="contact.html"
-                class="block text-gray-800 hover:text-[#56BAB6] text-lg font-medium py-3 border-b border-gray-200">お問い合わせ</a>
+                style="display:block; color:#333; font-size:1.125rem; font-weight:500; padding:14px 0; border-bottom:1px solid #e5e7eb; text-decoration:none;">お問い合わせ</a>
         </nav>
     </div>
 </div>

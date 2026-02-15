@@ -28,24 +28,34 @@
 		}
 
 		// メニューを開く関数
-		function openMenu() {
-			offCanvasMenu.classList.add('offcanvas-open');
+	function openMenu() {
+		// インラインスタイルで表示（CSSクラスに依存しない）
+		offCanvasMenu.style.display = '';
+		// 次のフレームでtransformを変更（アニメーションのため）
+		requestAnimationFrame(() => {
+			offCanvasMenu.style.transform = 'translateX(0)';
 			overlay.classList.add('active');
-			body.style.overflow = 'hidden'; // スクロールを防止
-		}
+		});
+		body.style.overflow = 'hidden'; // スクロールを防止
+	}
 
-		// メニューを閉じる関数
-		function closeMenu() {
-			offCanvasMenu.classList.remove('offcanvas-open');
-			overlay.classList.remove('active');
-			body.style.overflow = ''; // スクロールを復元
-		}
+	// メニューを閉じる関数
+	function closeMenu() {
+		offCanvasMenu.style.transform = 'translateX(-100%)';
+		overlay.classList.remove('active');
+		body.style.overflow = ''; // スクロールを復元
+		// トランジション完了後にインラインスタイルで非表示
+		setTimeout(() => {
+			offCanvasMenu.style.display = 'none';
+		}, 300); // transition duration
+	}
 
-		// バーガーメニュークリックでメニューを開く（要素が存在する場合のみ）
+		// バーガーメニュークリックでメニューを開く
 		if (menuToggle) {
 			menuToggle.addEventListener('click', function(e) {
 				e.stopPropagation();
-				if (offCanvasMenu.classList.contains('offcanvas-open')) {
+				// transformで開閉状態を判定（CSSクラスに依存しない）
+				if (offCanvasMenu.style.transform === 'translateX(0)' || offCanvasMenu.style.transform === 'translateX(0px)') {
 					closeMenu();
 				} else {
 					openMenu();
@@ -53,7 +63,16 @@
 			});
 		}
 
-		// オーバーレイクリックでメニューを閉じる（要素が存在する場合のみ）
+		// 閉じるボタン（✕）でメニューを閉じる
+		const menuClose = document.getElementById('menuClose');
+		if (menuClose) {
+			menuClose.addEventListener('click', function(e) {
+				e.stopPropagation();
+				closeMenu();
+			});
+		}
+
+		// オーバーレイクリックでメニューを閉じる
 		if (overlay) {
 			overlay.addEventListener('click', closeMenu);
 		}
@@ -75,7 +94,7 @@
 		// ESCキーでメニューを閉じる（documentは常に存在するはずだが安全のため）
 		if (document && document.addEventListener) {
 			document.addEventListener('keydown', function(e) {
-				if (e.key === 'Escape' && offCanvasMenu.classList.contains('offcanvas-open')) {
+				if (e.key === 'Escape' && (offCanvasMenu.style.transform === 'translateX(0)' || offCanvasMenu.style.transform === 'translateX(0px)')) {
 					closeMenu();
 				}
 			});

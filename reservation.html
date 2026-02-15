@@ -87,11 +87,12 @@
 							<!-- Googleカレンダーiframe（ユーザーが挿入済み） -->
 							<div class="flex justify-center">
 								<!-- ここにGoogleカレンダーのiframeが挿入されます -->
-								<div class="text-center text-gray-500 p-8 border border-gray-300 rounded w-full">
+								<div
+									class="text-center text-gray-500 p-4 md:p-8 border border-gray-300 rounded w-full max-w-full overflow-hidden">
 									<iframe loading="lazy"
-										src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=Asia%2FTokyo&amp;bgcolor=%23ffffff&amp;src=MzEwLndlc3QuZmllbGRAZ21haWwuY29t&amp;src=MWQxNmI0NWMzN2VmYzcwYjk3ZWUzZjZkYjY4YzBiNDk2NGY1Y2E2Y2Q0MzZmMjUxMzc1MzMyMTAzZWU4OGJkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGJjMWVjYTE4NzUzYzNlNjEwOWNkNWRmZmExNmQzZjI0ZDMzMWUyNWYxOWJiNWFkOGM3ODE3MGJkOTlmOTk3ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=YWY2ZDA2OTE4ZDVlNTBmNzZlYjE1MTcxMGY0MDlmZTBjYWE2NGIwYmQwMzBhM2RjM2M0MGEwMzRiYjhmZDZkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGNkMmJlODU3NzljMjc0NWE2MTkwYWU3ODVlNjgxMWE0MjQ5ZWUwOGExM2VkZDNjYjAyNjY0MTQ1MTY4N2Q2OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%2333B679&amp;color=%23002ccc&amp;color=%23616161&amp;color=%23F09300&amp;color=%23D50000"
-										style="margin:auto;" width="800" height="600" frameborder="0"
-										scrolling="no"></iframe>
+										src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;ctz=Asia%2FTokyo&amp;bgcolor=%23ffffff&amp;src=MzEwLndlc3QuZmlllGRAZ21haWwuY29t&amp;src=MWQxNmI0NWMzN2VmYzcwYjk3ZWUzZjZkYjY4YzBiNDk2NGY1Y2E2Y2Q0MzZmMjUxMzc1MzMyMTAzZWU4OGJkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGJjMWVjYTE4NzUzYzNlNjEwOWNkNWRmZmExNmQzZjI0ZDMzMWUyNWYxOWJiNWFkOGM3ODE3MGJkOTlmOTk3ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=YWY2ZDA2OTE4ZDVlNTBmNzZlYjE1MTcxMGY0MDlmZTBjYWE2NGIwYmQwMzBhM2RjM2M0MGEwMzRiYjhmZDZkYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;src=NGNkMmJlODU3NzljMjc0NWE2MTkwYWU3ODVlNjgxMWE0MjQ5ZWUwOGExM2VkZDNjYjAyNjY0MTQ1MTY4N2Q2OUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%2333B679&amp;color=%23002ccc&amp;color=%23616161&amp;color=%23F09300&amp;color=%23D50000"
+										class="w-full max-w-full" style="margin:auto; max-width: 100%;" height="600"
+										frameborder="0" scrolling="no"></iframe>
 
 								</div>
 							</div>
@@ -125,7 +126,7 @@
 
 							<!-- お天気モジュール -->
 							<div class="mt-4">
-								<object type="text/html" data="otenki.html" class="w-full h-auto"></object>
+								<div id="otenki-container" class="w-full" style="overflow:hidden;"></div>
 							</div>
 
 							<!-- 追加文章セクション -->
@@ -288,6 +289,27 @@
 			.then(res => res.text())
 			.then(data => {
 				document.getElementById('footer').innerHTML = data;
+			});
+
+		fetch('otenki.html')
+			.then(res => res.text())
+			.then(data => {
+				const container = document.getElementById('otenki-container');
+				container.innerHTML = data;
+
+				// ウィジェットのレスポンシブ対応: max-width属性を設定
+				function updateWeatherBreakpoints() {
+					const box = container.querySelector('.ww-box');
+					if (!box) return;
+					const w = container.offsetWidth;
+					const breakpoints = [1279, 768, 405, 329, 200, 180, 128];
+					const matched = breakpoints.filter(bp => w <= bp).map(bp => bp + 'px');
+					box.setAttribute('max-width', matched.join(' '));
+				}
+				updateWeatherBreakpoints();
+				if (typeof ResizeObserver !== 'undefined') {
+					new ResizeObserver(updateWeatherBreakpoints).observe(container);
+				}
 			});
 	</script>
 	<script src="assets/js/main.js"></script>
