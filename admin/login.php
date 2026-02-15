@@ -35,9 +35,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
         $stmt = $db->prepare("INSERT INTO login_tokens (email, token, expires_at) VALUES (?, ?, ?)");
         $stmt->execute([$email, $token, $expires_at]);
 
-        // メール送信（実際の実装ではメール送信機能を使用）
-        // ここではコンソールに表示するだけ
-        $success = "4桁トークンを送りました: $token (15分以内に入力してください)";
+        // メール送信
+        require_once 'mailer.php';
+        $subject = '【WEST FIELD】管理パネルログイン認証コード';
+        $body = "管理パネルへのログインが要求されました。\n\n";
+        $body .= "認証コード: " . $token . "\n\n";
+        $body .= "このコードは15分間有効です。心当たりがない場合は、このメールを破棄してください。";
+
+        if (send_email($email, '管理者', $subject, $body)) {
+            $success = "認証コードをメール送信しました。メールを確認して入力してください。";
+        } else {
+            $error = "メール送信に失敗しました。SMTP設定を確認してください。";
+            // 開発環境用に表示（本番では削除推奨）
+            $success = "（デバッグ用）メール送信に失敗したため画面表示します: $token";
+        }
         $_SESSION['login_email'] = $email;
     }
 }
@@ -137,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
                         </label>
                         <input type="email" id="email" name="email"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                               placeholder="admin@example.com"
+                               placeholder="<?php echo htmlspecialchars($admin_email); ?>"
                                required>
                     </div>
 
