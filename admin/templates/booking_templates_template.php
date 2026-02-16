@@ -26,6 +26,7 @@
                         if ($template['type'] === 'normal') echo '通常予約（定例会）テンプレート';
                         elseif ($template['type'] === 'night_battle') echo '夜戦予約テンプレート';
                         elseif ($template['type'] === 'rental') echo '貸切予約テンプレート';
+                        else echo htmlspecialchars($template['type']);
                     ?>
                 </h3>
                 <p class="text-sm text-gray-500">最終更新: <?php echo $template['updated_at']; ?></p>

@@ -10,6 +10,13 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
 $error = '';
 $success = '';
 
+// リセット処理（別のメールアドレスでログインする場合など）
+if (isset($_GET['action']) && $_GET['action'] === 'reset') {
+    unset($_SESSION['login_email']);
+    header('Location: login.php');
+    exit;
+}
+
 // メールアドレス入力フォーム処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
     $email = trim($_POST['email']);
@@ -42,12 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'])) {
         $body .= "認証コード: " . $token . "\n\n";
         $body .= "このコードは15分間有効です。心当たりがない場合は、このメールを破棄してください。";
 
-        if (send_email($email, '管理者', $subject, $body)) {
+        $result = send_email($email, '管理者', $subject, $body);
+
+        if ($result === true) {
             $success = "認証コードをメール送信しました。メールを確認して入力してください。";
         } else {
-            $error = "メール送信に失敗しました。SMTP設定を確認してください。";
+            $error_details = is_string($result) ? $result : "不明なエラー";
+            $error = "メール送信に失敗しました: " . htmlspecialchars($error_details);
             // 開発環境用に表示（本番では削除推奨）
-            $success = "（デバッグ用）メール送信に失敗したため画面表示します: $token";
+            // $success = "（デバッグ用）メール送信に失敗したため画面表示します: $token";
         }
         $_SESSION['login_email'] = $email;
     }
@@ -148,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
                         </label>
                         <input type="email" id="email" name="email"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                               placeholder="<?php echo htmlspecialchars($admin_email); ?>"
+                               placeholder="管理者メールアドレスを入力"
                                required>
                     </div>
 
@@ -181,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['token'])) {
                     </button>
 
                     <div class="mt-4 text-center">
-                        <a href="login.php" class="text-blue-600 hover:text-blue-800 text-sm">
+                        <a href="login.php?action=reset" class="text-blue-600 hover:text-blue-800 text-sm">
                             <i class="fas fa-redo mr-1"></i>別のメールアドレスでログイン
                         </a>
                     </div>

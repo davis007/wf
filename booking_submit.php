@@ -111,11 +111,72 @@ function save_booking($data) {
 }
 
 /**
+ * ICSファイル（カレンダー用）の生成
+ */
+function generate_ics_content($data) {
+    // 日時のフォーマット (YYYYMMDD)
+    $date_str = str_replace('-', '', $data['event_date']);
+
+    // 開始時間と終了時間（仮：定例会は10:00〜16:00、夜戦は19:00〜23:00など）
+    // 正確な時間が不明なため、終日イベントとするか、一般的な時間を設定
+    $start_time = "090000"; // 9:00
+    $end_time = "170000";   // 17:00
+
+    if ($data['booking_type'] === 'night_battle') {
+        $start_time = "190000";
+        $end_time = "230000";
+    }
+
+    $dtstart = $date_str . 'T' . $start_time;
+    $dtend = $date_str . 'T' . $end_time;
+
+    $now = gmdate('Ymd\THis\Z');
+    $uid = uniqid('westfield_') . '@westfield2023.net';
+
+    $summary = "【予約】" . $data['team_name'] . " 様 (" . $data['people'] . "名)";
+    $description = "予約種別: " . ($data['booking_type'] === 'rental' ? '貸切' : ($data['booking_type'] === 'night_battle' ? '夜戦' : '定例会')) . "\\n";
+    $description .= "氏名: " . $data['name_kanji'] . "\\n";
+    $description .= "人数: " . $data['people'] . "名\\n";
+    $description .= "電話: " . $data['tel'] . "\\n";
+    $description .= "送迎: " . ($data['pickup'] === 'yes' ? '有り' : '無し');
+
+    // ICSフォーマットの構築
+    $ics = "BEGIN:VCALENDAR\r\n";
+    $ics .= "VERSION:2.0\r\n";
+    $ics .= "PRODID:-//WEST FIELD//Booking System//JA\r\n";
+    $ics .= "CALSCALE:GREGORIAN\r\n";
+    $ics .= "METHOD:PUBLISH\r\n";
+    $ics .= "BEGIN:VEVENT\r\n";
+    $ics .= "UID:{$uid}\r\n";
+    $ics .= "DTSTAMP:{$now}\r\n";
+    $ics .= "DTSTART;TZID=Asia/Tokyo:{$dtstart}\r\n";
+    $ics .= "DTEND;TZID=Asia/Tokyo:{$dtend}\r\n";
+    $ics .= "SUMMARY:{$summary}\r\n";
+    $ics .= "DESCRIPTION:{$description}\r\n";
+    $ics .= "LOCATION:WEST FIELD\r\n";
+    $ics .= "STATUS:CONFIRMED\r\n";
+    $ics .= "END:VEVENT\r\n";
+    $ics .= "END:VCALENDAR\r\n";
+
+    return $ics;
+}
+
+/**
  * メール送信
  */
 function send_booking_emails($data) {
     require_once 'admin/mailer.php';
     global $admin_email;
+
+    // ICSファイルを生成
+    $ics_content = generate_ics_content($data);
+    $attachments = [
+        [
+            'name' => 'booking_' . $data['event_date'] . '.ics',
+            'content' => $ics_content,
+            'type' => 'text/calendar'
+        ]
+    ];
 
     // 1. 管理者へ通知
     $admin_subject = '【WEST FIELD】新規予約がありました';
@@ -138,8 +199,10 @@ function send_booking_emails($data) {
     $admin_body .= "■レンタルガン: " . $data['rental_gun'] . "\n";
     $admin_body .= "■レンタルゴーグル: " . $data['rental_goggle'] . "\n";
     $admin_body .= "\n送信日時: " . date('Y-m-d H:i:s') . "\n";
+    $admin_body .= "\n※添付のICSファイルを開くとカレンダーに予定を登録できます。";
 
-    send_email($admin_email, '管理者', $admin_subject, $admin_body);
+    // send_emailに添付ファイルを渡す
+    send_email($admin_email, '管理者', $admin_subject, $admin_body, $attachments);
 
     // 2. 予約者へ自動返信
     try {
@@ -165,6 +228,7 @@ function send_booking_emails($data) {
             ];
             $body = str_replace(array_keys($placeholders), array_values($placeholders), $body);
 
+            // 予約者には添付ファイルなしで送信
             send_email($data['email'], $data['name_kanji'], $subject, $body);
         }
     } catch (Exception $e) {

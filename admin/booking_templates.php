@@ -13,12 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = trim($_POST['content'] ?? '');
     $csrf_token = $_POST['csrf_token'] ?? '';
 
+    error_log("POST DEBUG: type={$type}, subject={$subject}, csrf_token={$csrf_token}");
+
     if (!validate_csrf_token($csrf_token)) {
         $error = 'CSRFトークンが無効です';
     } elseif (empty($subject) || empty($content)) {
         $error = '件名と本文は必須です';
     } elseif (!in_array($type, ['normal', 'night_battle', 'rental'])) {
-        $error = '無効なテンプレート種別です';
+        $error = '無効なテンプレート種別です: ' . htmlspecialchars($type);
     } else {
         try {
             $stmt = $db->prepare("UPDATE booking_templates SET subject = ?, content = ?, updated_at = datetime('now') WHERE type = ?");

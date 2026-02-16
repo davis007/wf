@@ -16,7 +16,7 @@ $smtp_host = 'localhost';
 $smtp_port = 25;
 $smtp_username = '';
 $smtp_password = '';
-$smtp_from_email = 'noreply@westfield.example.com';
+$smtp_from_email = 'info@westfield2023.net';
 $smtp_from_name = 'WEST FIELD';
 
 // 管理者メールアドレス（初期値はnull）
